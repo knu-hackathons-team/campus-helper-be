@@ -1,4 +1,68 @@
 package com.soft.campushelper.Member.service;
 
+import com.soft.campushelper.Member.Member;
+import com.soft.campushelper.Member.controller.dto.MemberRequest;
+import com.soft.campushelper.Role;
+import com.soft.campushelper.global.auth.JwtProvider;
+import com.soft.campushelper.global.exception.AuthenticationException;
+import com.soft.campushelper.global.exception.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
+@Service
+@RequiredArgsConstructor
 public class MemberService {
+
+    private final MemberReaderService memberReaderService;
+    private final MemberWriterService memberWriterService;
+    private final JwtProvider jwtProvider;
+
+    @Transactional
+    public void register(MemberRequest.Register request) {
+        memberReaderService.getMemberByLoginId(request.loginId())
+                .ifPresent(member -> {
+                    throw new IllegalArgumentException("이미 존재하는 ID입니다.");
+                });
+
+        Member member = Member.builder()
+                .loginId(request.loginId())
+                .password(hashPassword(request.password())) // 간단한 해시 처리
+                .nickname(request.nickname())
+                .college(request.college())
+                .role(Role.USER)
+                .build();
+
+        memberWriterService.save(member);
+    }
+    @Transactional
+    public String login(MemberRequest.Login request) {
+        Member member = memberReaderService.getMemberByLoginId(request.loginId()).orElseThrow(
+                () -> new EntityNotFoundException("존제하지 않는 Id 입니다.")
+        );
+
+        if (!member.getPassword().equals(hashPassword(request.password()))) {
+            throw new AuthenticationException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return jwtProvider.createToken(member.getId(), member.getRole());
+    }
+
+
+
+    private String hashPassword(String password) {
+        // MessageDigest를 사용한 간단한 해시 처리
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("비밀번호 해시 처리 실패", e);
+        }
+    }
 }

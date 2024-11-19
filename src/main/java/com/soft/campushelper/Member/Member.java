@@ -1,8 +1,9 @@
 package com.soft.campushelper.Member;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.soft.campushelper.Role;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,12 +11,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
+@Builder
 public class Member {
     @Id
-    public Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public String name;
+    private String loginId;
 
-    public String college;
+    private String password;
+
+    private String nickname;
+
+    private String college;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }
