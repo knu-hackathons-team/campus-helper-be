@@ -2,7 +2,7 @@ package com.soft.campushelper.Member.service;
 
 import com.soft.campushelper.Member.Member;
 import com.soft.campushelper.Member.controller.dto.MemberRequest;
-import com.soft.campushelper.Role;
+import com.soft.campushelper.Member.Role;
 import com.soft.campushelper.global.auth.JwtProvider;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.global.exception.EntityNotFoundException;
