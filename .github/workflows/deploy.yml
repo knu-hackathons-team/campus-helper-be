@@ -49,6 +49,7 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/campushelper:latest
 
       # 8. EC2에 배포
+      # 개발용 profile 인 prod 로 설정
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -61,7 +62,7 @@ jobs:
             docker rm campushelper || true
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/campushelper:latest
             docker run -d --name campushelper \
-            -e SPRING_PROFILES_ACTIVE=prod \
+            -e SPRING_PROFILES_ACTIVE=prod \  
             -e RDS_HOST=${{ secrets.RDS_HOST }} \
             -e DB_NAME=${{ secrets.DB_NAME }} \
             -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
