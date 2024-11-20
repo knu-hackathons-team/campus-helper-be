@@ -20,8 +20,8 @@ public class PostResponse {
     public record Info(
             String subject,
             String userName,
-            String postName,
-            String description,
+            String title,
+            String content,
             HelpCategory category,
             FundingStatus fundingStatus,
             Integer distance,
