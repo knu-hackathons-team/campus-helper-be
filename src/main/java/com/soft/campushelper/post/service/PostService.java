@@ -30,6 +30,9 @@ public class PostService {
         Post post = request.toEntity();
 
         postWriterService.save(post);
+
+        //TODO 유저 포인트 감소 로직
+        member.decreasePoint(request.reward());
     }
 
     /**
