@@ -51,3 +51,4 @@ jobs:
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/campushelper-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/campushelper.jar
           ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar /home/${{ secrets.EC2_USERNAME }}/campushelper.jar > app.log 2>&1 &"
           rm -f private_key.pem
+          
