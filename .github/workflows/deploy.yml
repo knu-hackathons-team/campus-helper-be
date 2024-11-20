@@ -43,3 +43,4 @@ jobs:
             docker rm campushelper || true
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/campushelper:latest
             docker run -d --name campushelper -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/campushelper:latest
+            
