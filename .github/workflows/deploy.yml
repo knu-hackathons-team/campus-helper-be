@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          # SSH 설정 최적화
+#          SSH 설정 최적화
           mkdir -p ~/.ssh
           echo -e "Host *\n\
             ControlMaster auto\n\
