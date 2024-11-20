@@ -8,6 +8,7 @@ import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.service.PostReaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class FundingService {
     private final FundingReaderService fundingReaderService;
     private final FundingWriterService fundingWriterService;
 
+    @Transactional
     public void participateInPost(Long memberId, Long postId) {
         Member member = memberReaderService.getMemberById(memberId);
         Post post = postReaderService.getPostById(postId);
@@ -40,6 +42,9 @@ public class FundingService {
 
         fundingWriterService.save(funding);
 
+        //TODO 펀딩 후 유저 포인트 감소 로직
+
+        member.decreasePoint(100);
 
     }
 }

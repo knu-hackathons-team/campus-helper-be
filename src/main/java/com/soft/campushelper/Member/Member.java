@@ -1,11 +1,11 @@
 package com.soft.campushelper.Member;
 
 import com.soft.campushelper.global.entity.BaseTimeEntity;
+import com.soft.campushelper.global.exception.InvalidConditionException;
 import com.soft.campushelper.post.Post;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,9 +26,18 @@ public class Member extends BaseTimeEntity {
 
     private String college;
 
+    private int point;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "writer")
     private List<Post> posts;
+
+    public void decreasePoint(int point){
+        if(this.point - point >= 0){
+            this.point -= point;
+        }
+        throw new InvalidConditionException("포인트가 부족합니다.");
+    }
 }
