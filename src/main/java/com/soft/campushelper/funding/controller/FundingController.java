@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FundingController {
     private final FundingService fundingService;
 
-    @PostMapping("/posts/{post-id}/participate")
+    @PostMapping("/post/{post-id}/participate")
     public GlobalResponse participateInPost(
             @Authenticate Long memberId,
             @PathVariable(name = "post-id") Long postId
