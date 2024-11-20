@@ -38,5 +38,9 @@ public class Post extends BaseTimeEntity {
 
     //TODO 펀딩
 
+    public boolean isWriter(Member member){
+        return this.writer.equals(member);
+    }
+
 
 }

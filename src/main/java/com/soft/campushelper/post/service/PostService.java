@@ -2,6 +2,7 @@ package com.soft.campushelper.post.service;
 
 import com.soft.campushelper.Member.Member;
 import com.soft.campushelper.Member.service.MemberReaderService;
+import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
@@ -39,6 +40,23 @@ public class PostService {
         Member member = memberReaderService.getMemberById(memberId);
         Page<Post> postList = postReaderService.getPostList(member, pageable);
         return postList.map(PostResponse.Info::from);
+    }
+
+    /**
+     * 게시물을 삭제하는 메서드
+     * @param memberId
+     * @param postId
+     */
+    @Transactional
+    public void deletePost(Long memberId, Long postId){
+        Member member = memberReaderService.getMemberById(memberId);
+        Post post = postReaderService.getPostById(postId);
+
+        if (!post.isWriter(member)) {
+            throw new AuthenticationException("게시글 삭제 권한이 없습니다.");
+        }
+
+        postWriterService.delete(post);
     }
 
 }

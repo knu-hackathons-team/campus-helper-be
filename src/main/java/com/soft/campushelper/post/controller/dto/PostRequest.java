@@ -13,7 +13,7 @@ public class PostRequest {
     public record Add(
             String title,
             String content,
-            int amount,
+            int reward,
             FundingStatus status,
             HelpCategory category,
             LocalDateTime endTime
@@ -22,7 +22,7 @@ public class PostRequest {
             return Post.builder()
                     .title(title)
                     .content(content)
-                    .amount(amount)
+                    .reward(reward)
                     .fundingStatus(status)
                     .category(category)
                     .endTime(endTime)
