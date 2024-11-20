@@ -37,6 +37,8 @@ public class PostController {
 
         return PagingResponse.from(postList);
     }
+    
+    //TODO 게시물 수정
 
     @DeleteMapping("/{post-id}")
     public GlobalResponse deletePost(
