@@ -7,6 +7,9 @@ import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
 import com.soft.campushelper.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +32,11 @@ public class PostController {
 
     @GetMapping
     public PagingResponse<PostResponse.Info> getPostList(
-            @Authenticate Long memberId
+            @Authenticate Long memberId,
+            @PageableDefault(page = 0, size = 10) Pageable pageable
     ){
-        return null;
+        Page<PostResponse.Info> postList = postService.getPostList(memberId, pageable);
+
+        return PagingResponse.from(postList);
     }
 }

@@ -1,7 +1,9 @@
 package com.soft.campushelper.post.controller.dto;
 
+import com.soft.campushelper.Member.Member;
 import com.soft.campushelper.post.FundingStatus;
 import com.soft.campushelper.post.HelpCategory;
+import com.soft.campushelper.post.Post;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
@@ -18,8 +20,8 @@ public class PostResponse {
     }
     @Builder
     public record Info(
-            String subject,
-            String userName,
+            String college,
+            String nickname,
             String title,
             String content,
             HelpCategory category,
@@ -29,6 +31,19 @@ public class PostResponse {
             Integer reward
 
     ){
+        public static Info from(Post post){
+            return Info.builder()
+                    .college(post.getWriter().getCollege())
+                    .nickname(post.getWriter().getNickname())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .category(post.getCategory())
+                    .fundingStatus(post.getFundingStatus())
+                    .distance(post.getDistance())
+                    .endTime(post.getEndTime())
+                    .reward(post.getReward())
+                    .build();
+        }
 
     }
 }

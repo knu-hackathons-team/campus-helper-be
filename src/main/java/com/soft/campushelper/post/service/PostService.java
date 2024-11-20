@@ -6,6 +6,8 @@ import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,9 @@ public class PostService {
     private final PostReaderService postReaderService;
     private final PostWriterService postWriterService;
 
+    /**
+     * 게시물을 추가하는 메서드
+     */
     @Transactional
     public void addPost(Long memberId, PostRequest.Add request){
         Member member = memberReaderService.getMemberById(memberId);
@@ -24,6 +29,16 @@ public class PostService {
         Post post = request.toEntity();
 
         postWriterService.save(post);
+    }
+
+    /**
+     * 게시물 목록을 페이징으로 반환하는 메서드
+     */
+    @Transactional(readOnly = true)
+    public Page<PostResponse.Info> getPostList(Long memberId, Pageable pageable){
+        Member member = memberReaderService.getMemberById(memberId);
+        Page<Post> postList = postReaderService.getPostList(member, pageable);
+        return postList.map(PostResponse.Info::from);
     }
 
 }

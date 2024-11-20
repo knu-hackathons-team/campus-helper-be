@@ -34,7 +34,7 @@ public class Post extends BaseTimeEntity {
 
     private LocalDateTime endTime;
 
-    private int amount;
+    private int reward;
 
     //TODO 펀딩
 
