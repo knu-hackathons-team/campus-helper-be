@@ -30,5 +30,5 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
     @OneToMany(mappedBy = "writer")
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
 }

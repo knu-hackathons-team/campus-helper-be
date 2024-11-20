@@ -1,5 +1,7 @@
 package com.soft.campushelper.funding;
 
+import lombok.Getter;
+
 @Getter
 public enum ParticipationStatus {
     PENDING("대기중"),
