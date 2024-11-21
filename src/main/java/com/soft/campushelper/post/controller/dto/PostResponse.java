@@ -25,11 +25,11 @@ public class PostResponse {
             String writer,
             String title,
             String content,
-            HelpCategory category,
-            FundingStatus fundingStatus,
+            String category,
+            boolean processingStatus,
+            boolean allowGroupFunding,
             double latitude,
             double longitude,
-            LocalDateTime endTime,
             Integer reward
 
     ){
@@ -40,11 +40,11 @@ public class PostResponse {
                     .writer(post.getWriter().getNickname())
                     .title(post.getTitle())
                     .content(post.getContent())
-                    .category(post.getCategory())
-                    .fundingStatus(post.getFundingStatus())
+                    .category(post.getCategory().getDescription())
+                    .allowGroupFunding(post.isAllowGroupFunding())
+                    .processingStatus(post.isProcessStatus())
                     .latitude(post.getLatitude())
                     .longitude(post.getLongitude())
-                    .endTime(post.getEndTime())
                     .reward(post.getReward())
                     .build();
         }

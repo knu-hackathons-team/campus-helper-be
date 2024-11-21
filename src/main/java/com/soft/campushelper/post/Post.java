@@ -26,9 +26,10 @@ public class Post extends BaseTimeEntity {
 
     private String content;
 
+    @Enumerated(EnumType.STRING)
     private HelpCategory category;
 
-    private FundingStatus fundingStatus;
+    private boolean allowGroupFunding;
 
     private double latitude;
 
@@ -36,26 +37,25 @@ public class Post extends BaseTimeEntity {
 
     private int distance;
 
-    private LocalDateTime endTime;
+    private int remainingTime;
+
+    private boolean processStatus;
 
     @Builder.Default
     private int reward = 0;  // 보상금 (펀딩금액이 더해질 수 있음)
 
 
     @Builder.Default
-    private int currentParticipants = 0;  // 현재 참여자 수
+    private int currentParticipants = 1;  // 현재 참여자 수
 
     //TODO 펀딩
 
     public boolean isWriter(Member member){
         return this.writer.equals(member);
     }
-    public boolean isFundingEnabled() {
-        return this.fundingStatus == FundingStatus.ENABLED;
-    }
 
     public void addParticipant(int fundingAmount) {
-        if (!isFundingEnabled()) {
+        if (!isAllowGroupFunding()) {
             throw new IllegalStateException("펀딩이 불가능한 게시글입니다.");
         }
         this.currentParticipants++; //현재 펀딩참가자수 증가

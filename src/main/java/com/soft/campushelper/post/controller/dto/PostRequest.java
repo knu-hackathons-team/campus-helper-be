@@ -10,14 +10,16 @@ import java.time.LocalDateTime;
 
 public class PostRequest {
 
+    //TODO raminingTime 받고 터지는시간 계산
     @Builder
     public record Add(
             String title,
             String content,
             int reward,
-            FundingStatus status,
-            HelpCategory category,
-            LocalDateTime endTime,
+            boolean processStatus,
+            boolean allowGroupFunding,
+            String category,
+            int remainingTime,
             double latitude,
             double longitude
     ){
@@ -27,9 +29,10 @@ public class PostRequest {
                     .content(content)
                     .writer(member)
                     .reward(reward)
-                    .fundingStatus(status)
-                    .category(category)
-                    .endTime(endTime)
+                    .allowGroupFunding(allowGroupFunding)
+                    .processStatus(processStatus)
+                    .category(HelpCategory.fromDescription(category))
+                    .remainingTime(remainingTime)
                     .latitude(latitude)
                     .longitude(longitude)
                     .build();
