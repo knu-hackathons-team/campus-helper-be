@@ -42,6 +42,7 @@ public class Post extends BaseTimeEntity {
     @Builder.Default
     private int remainingTime = 0;
 
+
     @Builder.Default
     private boolean processStatus = false;
 
