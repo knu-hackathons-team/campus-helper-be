@@ -6,6 +6,7 @@ import com.soft.campushelper.Member.service.MemberService;
 import com.soft.campushelper.global.annotation.Authenticate;
 import com.soft.campushelper.global.dto.GlobalResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +37,9 @@ public class MemberController {
     }
 
     @GetMapping("/info")
-    public MemberResponse.Info getMemberInfo(
+    public ResponseEntity<MemberResponse.Info> getMemberInfo(
             @Authenticate Long memberId
-    ){
-        return memberService.getMemberInfo(memberId);
+    ) {
+        return ResponseEntity.ok(memberService.getMemberInfo(memberId));
     }
 }
