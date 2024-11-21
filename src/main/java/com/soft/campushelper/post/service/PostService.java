@@ -37,11 +37,11 @@ public class PostService {
 
     /**
      * 게시물 목록을 페이징으로 반환하는 메서드
+     * 비회원, 회원 모두 가능
      */
     @Transactional(readOnly = true)
-    public Page<PostResponse.Info> getPostList(Long memberId, Pageable pageable){
-        Member member = memberReaderService.getMemberById(memberId);
-        Page<Post> postList = postReaderService.getPostList(member, pageable);
+    public Page<PostResponse.Info> getPostList(Pageable pageable){
+        Page<Post> postList = postReaderService.getPostList(pageable);
         return postList.map(PostResponse.Info::from);
     }
 

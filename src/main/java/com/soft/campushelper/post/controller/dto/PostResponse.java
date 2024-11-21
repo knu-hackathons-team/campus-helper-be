@@ -26,7 +26,8 @@ public class PostResponse {
             String content,
             HelpCategory category,
             FundingStatus fundingStatus,
-            Integer distance,
+            double latitude,
+            double longitude,
             LocalDateTime endTime,
             Integer reward
 
@@ -39,7 +40,8 @@ public class PostResponse {
                     .content(post.getContent())
                     .category(post.getCategory())
                     .fundingStatus(post.getFundingStatus())
-                    .distance(post.getDistance())
+                    .latitude(post.getLatitude())
+                    .longitude(post.getLongitude())
                     .endTime(post.getEndTime())
                     .reward(post.getReward())
                     .build();

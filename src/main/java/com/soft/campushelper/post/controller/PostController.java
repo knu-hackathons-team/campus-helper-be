@@ -30,10 +30,9 @@ public class PostController {
 
     @GetMapping
     public PagingResponse<PostResponse.Info> getPostList(
-            @Authenticate Long memberId,
             @PageableDefault(page = 0, size = 10) Pageable pageable
     ){
-        Page<PostResponse.Info> postList = postService.getPostList(memberId, pageable);
+        Page<PostResponse.Info> postList = postService.getPostList(pageable);
 
         return PagingResponse.from(postList);
     }

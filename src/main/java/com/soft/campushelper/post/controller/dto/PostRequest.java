@@ -18,7 +18,8 @@ public class PostRequest {
             FundingStatus status,
             HelpCategory category,
             LocalDateTime endTime,
-            int distance
+            double latitude,
+            double longitude
     ){
         public Post toEntity(Member member) {
             return Post.builder()
@@ -29,7 +30,8 @@ public class PostRequest {
                     .fundingStatus(status)
                     .category(category)
                     .endTime(endTime)
-                    .distance(distance)
+                    .latitude(latitude)
+                    .longitude(longitude)
                     .build();
         }
 

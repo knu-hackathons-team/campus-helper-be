@@ -30,6 +30,10 @@ public class Post extends BaseTimeEntity {
 
     private FundingStatus fundingStatus;
 
+    private double latitude;
+
+    private double longitude;
+
     private int distance;
 
     private LocalDateTime endTime;
