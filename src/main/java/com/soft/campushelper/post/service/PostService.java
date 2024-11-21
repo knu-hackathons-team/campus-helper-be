@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -60,6 +62,14 @@ public class PostService {
         }
 
         postWriterService.delete(post);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostResponse.Info> getMemberPostList(Long memberId, Pageable pageable){
+        Member member = memberReaderService.getMemberById(memberId);
+        Page<Post> postList = postReaderService.getPostListByWriter(member, pageable);
+
+        return postList.map(PostResponse.Info::from);
     }
 
 }

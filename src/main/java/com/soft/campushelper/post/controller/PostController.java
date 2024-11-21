@@ -47,4 +47,13 @@ public class PostController {
         postService.deletePost(memberId, postId);
         return GlobalResponse.builder().message("게시물 삭제가 완료되었습니다.").build();
     }
+
+    @GetMapping("/my")
+    public PagingResponse<PostResponse.Info> getMyPostList(
+            @Authenticate Long memberId,
+            @PageableDefault(page = 0, size = 10) Pageable pageable
+    ){
+        Page<PostResponse.Info> memberPostList = postService.getMemberPostList(memberId, pageable);
+        return PagingResponse.from(memberPostList);
+    }
 }

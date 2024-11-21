@@ -26,4 +26,9 @@ public class PostReaderService {
     public Page<Post> getPostList(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Post> getPostListByWriter(Member member, Pageable pageable) {
+        return postRepository.findAllByWriter(member, pageable);
+    }
 }
