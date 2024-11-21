@@ -35,9 +35,9 @@ public class Member extends BaseTimeEntity {
     private List<Post> posts;
 
     public void decreasePoint(int point){
-        if(this.point - point >= 0){
-            this.point -= point;
+        if(this.point - point < 0){
+            throw new InvalidConditionException("포인트가 부족합니다.");
         }
-        throw new InvalidConditionException("포인트가 부족합니다.");
+        this.point -= point;
     }
 }
