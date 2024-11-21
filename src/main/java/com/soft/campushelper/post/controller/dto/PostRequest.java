@@ -1,5 +1,6 @@
 package com.soft.campushelper.post.controller.dto;
 
+import com.soft.campushelper.Member.Member;
 import com.soft.campushelper.post.FundingStatus;
 import com.soft.campushelper.post.HelpCategory;
 import com.soft.campushelper.post.Post;
@@ -18,10 +19,11 @@ public class PostRequest {
             HelpCategory category,
             LocalDateTime endTime
     ){
-        public Post toEntity() {
+        public Post toEntity(Member member) {
             return Post.builder()
                     .title(title)
                     .content(content)
+                    .writer(member)
                     .reward(reward)
                     .fundingStatus(status)
                     .category(category)

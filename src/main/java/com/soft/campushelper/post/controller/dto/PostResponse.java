@@ -21,7 +21,7 @@ public class PostResponse {
     @Builder
     public record Info(
             String college,
-            String nickname,
+            String writer,
             String title,
             String content,
             HelpCategory category,
@@ -34,7 +34,7 @@ public class PostResponse {
         public static Info from(Post post){
             return Info.builder()
                     .college(post.getWriter().getCollege())
-                    .nickname(post.getWriter().getNickname())
+                    .writer(post.getWriter().getNickname())
                     .title(post.getTitle())
                     .content(post.getContent())
                     .category(post.getCategory())

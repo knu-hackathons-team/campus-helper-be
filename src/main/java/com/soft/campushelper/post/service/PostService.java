@@ -27,7 +27,7 @@ public class PostService {
     public void addPost(Long memberId, PostRequest.Add request){
         Member member = memberReaderService.getMemberById(memberId);
 
-        Post post = request.toEntity();
+        Post post = request.toEntity(member);
 
         postWriterService.save(post);
 
