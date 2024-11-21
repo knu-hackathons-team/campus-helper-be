@@ -19,38 +19,48 @@ public class Post extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member writer;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String content;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private HelpCategory category;
 
+    @Column(nullable = false)
     @Builder.Default
     private boolean allowGroupFunding = false;
 
+    @Column(nullable = false)
     private double latitude;
 
+    @Column(nullable = false)
     private double longitude;
 
+    @Column(nullable = false)
     @Builder.Default
     private int distance = 0;
 
+    @Column(nullable = false)
     @Builder.Default
     private int remainingTime = 0;
 
-
+    @Column(nullable = false)
     @Builder.Default
     private boolean processStatus = false;
 
+    @Column(nullable = false)
     @Builder.Default
-    private int reward = 0;  // 보상금 (펀딩금액이 더해질 수 있음)
+    private int reward = 0;
 
+    @Column(nullable = false)
     @Builder.Default
-    private int currentParticipants = 1;  // 현재 참여자 수
+    private int currentParticipants = 1;
 
     //TODO 펀딩
 
