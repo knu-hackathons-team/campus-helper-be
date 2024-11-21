@@ -20,6 +20,7 @@ public class PostResponse {
     }
     @Builder
     public record Info(
+            Long id,
             String college,
             String writer,
             String title,
@@ -34,6 +35,7 @@ public class PostResponse {
     ){
         public static Info from(Post post){
             return Info.builder()
+                    .id(post.getId())
                     .college(post.getWriter().getCollege())
                     .writer(post.getWriter().getNickname())
                     .title(post.getTitle())
@@ -46,6 +48,5 @@ public class PostResponse {
                     .reward(post.getReward())
                     .build();
         }
-
     }
 }
