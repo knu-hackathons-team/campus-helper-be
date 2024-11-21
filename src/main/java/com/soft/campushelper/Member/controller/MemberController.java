@@ -28,12 +28,14 @@ public class MemberController {
         return GlobalResponse.builder().message("회원가입이 완료되었습니다.").build();
     }
     @PostMapping("/login")
-    public MemberResponse.Login login(
+    public ResponseEntity<MemberResponse.Login> login(
             @RequestBody MemberRequest.Login request
-    ){
+    ) {
         String token = memberService.login(request);
 
-        return MemberResponse.Login.from(token);
+        return ResponseEntity.ok()
+                .header("Authorization", token)
+                .body(MemberResponse.Login.from(token));
     }
 
     @GetMapping("/info")
