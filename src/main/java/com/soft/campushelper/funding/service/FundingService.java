@@ -24,7 +24,7 @@ public class FundingService {
         Post post = postReaderService.getPostById(postId);
 
         //펀딩 가능상태 체크
-        if (!post.isFundingEnabled()) {
+        if (!post.isAllowGroupFunding()) {
             throw new IllegalStateException("펀딩이 불가능한 게시글입니다.");
         }
         // 이미 참여했는지 확인
