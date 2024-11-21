@@ -58,6 +58,7 @@ public class Post extends BaseTimeEntity {
     @Builder.Default
     private int reward = 0;
 
+
     @Column(nullable = false)
     @Builder.Default
     private int currentParticipants = 1;
