@@ -29,21 +29,24 @@ public class Post extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private HelpCategory category;
 
-    private boolean allowGroupFunding;
+    @Builder.Default
+    private boolean allowGroupFunding = false;
 
     private double latitude;
 
     private double longitude;
 
-    private int distance;
+    @Builder.Default
+    private int distance = 0;
 
-    private int remainingTime;
+    @Builder.Default
+    private int remainingTime = 0;
 
-    private boolean processStatus;
+    @Builder.Default
+    private boolean processStatus = false;
 
     @Builder.Default
     private int reward = 0;  // 보상금 (펀딩금액이 더해질 수 있음)
-
 
     @Builder.Default
     private int currentParticipants = 1;  // 현재 참여자 수
