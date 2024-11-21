@@ -7,6 +7,7 @@ import com.soft.campushelper.post.Post;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PostResponse {
@@ -30,7 +31,8 @@ public class PostResponse {
             boolean allowGroupFunding,
             double latitude,
             double longitude,
-            Integer reward
+            Integer reward,
+            String createdAt
 
     ){
         public static Info from(Post post){
@@ -46,6 +48,7 @@ public class PostResponse {
                     .latitude(post.getLatitude())
                     .longitude(post.getLongitude())
                     .reward(post.getReward())
+                    .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .build();
         }
     }
