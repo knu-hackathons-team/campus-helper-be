@@ -32,18 +32,17 @@ public class FundingService {
             throw new IllegalStateException("이미 참여한 요청입니다.");
         }
 
-        post.addParticipant();
-
         Funding funding = Funding.builder()
                 .post(post)
                 .participant(member)
                 .amount(100) //TODO 펀딩 금액 조절
                 .build();
 
+        post.addParticipant(funding.getAmount());
+
         fundingWriterService.save(funding);
 
         //TODO 펀딩 후 유저 포인트 감소 로직
-
         member.decreasePoint(100);
 
     }

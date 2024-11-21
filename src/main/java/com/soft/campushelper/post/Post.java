@@ -34,9 +34,12 @@ public class Post extends BaseTimeEntity {
 
     private LocalDateTime endTime;
 
-    private int reward;
+    @Builder.Default
+    private int reward = 0;  // 보상금 (펀딩금액이 더해질 수 있음)
 
-    private int currentParticipants;
+
+    @Builder.Default
+    private int currentParticipants = 0;  // 현재 참여자 수
 
     //TODO 펀딩
 
@@ -47,12 +50,12 @@ public class Post extends BaseTimeEntity {
         return this.fundingStatus == FundingStatus.ENABLED;
     }
 
-    public void addParticipant() {
+    public void addParticipant(int fundingAmount) {
         if (!isFundingEnabled()) {
             throw new IllegalStateException("펀딩이 불가능한 게시글입니다.");
         }
-        this.currentParticipants++;
+        this.currentParticipants++; //현재 펀딩참가자수 증가
+        this.reward += fundingAmount; // 게시글의 보상금에서 펀딩 금액만큼 더해줌
     }
-
 
 }
