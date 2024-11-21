@@ -3,8 +3,10 @@ package com.soft.campushelper.Member.controller;
 import com.soft.campushelper.Member.controller.dto.MemberRequest;
 import com.soft.campushelper.Member.controller.dto.MemberResponse;
 import com.soft.campushelper.Member.service.MemberService;
+import com.soft.campushelper.global.annotation.Authenticate;
 import com.soft.campushelper.global.dto.GlobalResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +33,12 @@ public class MemberController {
         String token = memberService.login(request);
 
         return MemberResponse.Login.from(token);
+    }
+
+    @GetMapping("/info")
+    public MemberResponse.Info getMemberInfo(
+            @Authenticate Long memberId
+    ){
+        return memberService.getMemberInfo(memberId);
     }
 }

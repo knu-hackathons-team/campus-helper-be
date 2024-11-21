@@ -3,12 +3,14 @@ package com.soft.campushelper.Member.service;
 import com.soft.campushelper.Member.Member;
 import com.soft.campushelper.Member.controller.dto.MemberRequest;
 import com.soft.campushelper.Member.Role;
+import com.soft.campushelper.Member.controller.dto.MemberResponse;
 import com.soft.campushelper.global.auth.JwtProvider;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.global.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -43,7 +45,7 @@ public class MemberService {
     @Transactional
     public String login(MemberRequest.Login request) {
         Member member = memberReaderService.getMemberByLoginId(request.loginId()).orElseThrow(
-                () -> new EntityNotFoundException("존제하지 않는 Id 입니다.")
+                () -> new EntityNotFoundException("존재하지 않는 Id 입니다.")
         );
 
         if (!member.getPassword().equals(hashPassword(request.password()))) {
@@ -51,6 +53,15 @@ public class MemberService {
         }
 
         return jwtProvider.createToken(member.getId(), member.getRole());
+    }
+
+    @GetMapping
+    public MemberResponse.Info getMemberInfo(Long memberId){
+        Member member = memberReaderService.getMemberById(memberId);
+
+        return MemberResponse.Info.from(member);
+
+
     }
 
 

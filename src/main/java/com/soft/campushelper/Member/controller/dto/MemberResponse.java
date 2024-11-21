@@ -1,5 +1,6 @@
 package com.soft.campushelper.Member.controller.dto;
 
+import com.soft.campushelper.Member.Member;
 import lombok.Builder;
 
 public class MemberResponse {
@@ -11,5 +12,21 @@ public class MemberResponse {
         public static MemberResponse.Login from(String jwt){
             return Login.builder().jwt(jwt).build();
         }
+    }
+
+    @Builder
+    public record Info(
+            String nickname,
+            String college,
+            int point
+    ){
+        public static MemberResponse.Info from(Member member){
+            return Info.builder()
+                    .nickname(member.getNickname())
+                    .college(member.getCollege())
+                    .point(member.getPoint())
+                    .build();
+        }
+
     }
 }
