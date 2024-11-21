@@ -17,7 +17,8 @@ public class PostRequest {
             int reward,
             FundingStatus status,
             HelpCategory category,
-            LocalDateTime endTime
+            LocalDateTime endTime,
+            int distance
     ){
         public Post toEntity(Member member) {
             return Post.builder()
@@ -28,6 +29,7 @@ public class PostRequest {
                     .fundingStatus(status)
                     .category(category)
                     .endTime(endTime)
+                    .distance(distance)
                     .build();
         }
 
