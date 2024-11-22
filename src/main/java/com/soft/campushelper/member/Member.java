@@ -37,7 +37,7 @@ public class Member extends BaseTimeEntity {
     private List<Post> posts;
 
     @OneToMany(mappedBy = "worker")
-    private List<Work> works = new ArrayList<>();
+    private List<Work> works;
 
     public void decreasePoint(int point){
         if(this.point - point < 0){
