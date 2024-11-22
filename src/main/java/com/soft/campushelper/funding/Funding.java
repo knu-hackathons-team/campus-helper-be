@@ -28,6 +28,6 @@ public class Funding extends BaseTimeEntity {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private ParticipationStatus status = ParticipationStatus.PENDING;
+    private ParticipationStatus status = ParticipationStatus.NOT_STARTED;
 
 }

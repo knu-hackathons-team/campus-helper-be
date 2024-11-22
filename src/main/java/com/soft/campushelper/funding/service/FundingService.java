@@ -1,5 +1,6 @@
 package com.soft.campushelper.funding.service;
 
+import com.soft.campushelper.funding.ParticipationStatus;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.funding.Funding;
@@ -34,7 +35,8 @@ public class FundingService {
         Funding funding = Funding.builder()
                 .post(post)
                 .participant(member)
-                .amount(100) //TODO 펀딩 금액 조절
+                .amount(100)//TODO 펀딩 금액 조절
+                .status(ParticipationStatus.IN_PROGRESS)
                 .build();
 
         post.addParticipant(funding.getAmount());

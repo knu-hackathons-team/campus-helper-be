@@ -65,7 +65,7 @@ public class Post extends BaseTimeEntity {
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private Work work;
 
-    //TODO 펀딩
+    //TODO 펀딩 연관관계
 
     public boolean isWriter(Member member){
         return this.writer.equals(member);
@@ -102,6 +102,7 @@ public class Post extends BaseTimeEntity {
             throw new IllegalStateException("진행 중인 요청만 완료할 수 있습니다.");
         }
         this.processStatus = ProcessStatus.COMPLETED;
+
     }
 
 }
