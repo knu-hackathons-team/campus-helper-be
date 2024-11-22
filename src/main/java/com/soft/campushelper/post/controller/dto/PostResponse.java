@@ -1,6 +1,8 @@
 package com.soft.campushelper.post.controller.dto;
 
+import com.soft.campushelper.post.HelpCategory;
 import com.soft.campushelper.post.Post;
+import com.soft.campushelper.post.ProcessStatus;
 import lombok.Builder;
 
 import java.time.format.DateTimeFormatter;
@@ -22,8 +24,8 @@ public class PostResponse {
             String writer,
             String title,
             String content,
-            String category,
-            boolean processingStatus,
+            HelpCategory category,
+            ProcessStatus processingStatus,
             boolean allowGroupFunding,
             double latitude,
             double longitude,
@@ -38,9 +40,9 @@ public class PostResponse {
                     .writer(post.getWriter().getNickname())
                     .title(post.getTitle())
                     .content(post.getContent())
-                    .category(post.getCategory().getDescription())
+                    .category(post.getCategory())
                     .allowGroupFunding(post.isAllowGroupFunding())
-                    .processingStatus(post.isProcessStatus())
+                    .processingStatus(post.getProcessStatus())
                     .latitude(post.getLatitude())
                     .longitude(post.getLongitude())
                     .reward(post.getReward())

@@ -30,6 +30,7 @@ public class WorkController {
             @Authenticate Long memberId,
             @PathVariable("post-id") Long postId
     ){
-
+        workService.completeWork(memberId, postId);
+        return GlobalResponse.builder().message("수행 완료").build();
     }
 }
