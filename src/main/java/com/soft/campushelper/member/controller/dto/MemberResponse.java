@@ -1,6 +1,6 @@
-package com.soft.campushelper.Member.controller.dto;
+package com.soft.campushelper.member.controller.dto;
 
-import com.soft.campushelper.Member.Member;
+import com.soft.campushelper.member.Member;
 import lombok.Builder;
 
 public class MemberResponse {

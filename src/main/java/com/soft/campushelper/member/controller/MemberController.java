@@ -1,8 +1,8 @@
-package com.soft.campushelper.Member.controller;
+package com.soft.campushelper.member.controller;
 
-import com.soft.campushelper.Member.controller.dto.MemberRequest;
-import com.soft.campushelper.Member.controller.dto.MemberResponse;
-import com.soft.campushelper.Member.service.MemberService;
+import com.soft.campushelper.member.controller.dto.MemberRequest;
+import com.soft.campushelper.member.controller.dto.MemberResponse;
+import com.soft.campushelper.member.service.MemberService;
 import com.soft.campushelper.global.annotation.Authenticate;
 import com.soft.campushelper.global.dto.GlobalResponse;
 import lombok.RequiredArgsConstructor;

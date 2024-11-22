@@ -1,7 +1,7 @@
-package com.soft.campushelper.Member.service;
+package com.soft.campushelper.member.service;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.Member.repository.MemberRepository;
+import com.soft.campushelper.member.Member;
+import com.soft.campushelper.member.repository.MemberRepository;
 import com.soft.campushelper.global.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

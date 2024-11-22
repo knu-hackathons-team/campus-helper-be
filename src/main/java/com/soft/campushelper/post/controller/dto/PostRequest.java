@@ -1,12 +1,9 @@
 package com.soft.campushelper.post.controller.dto;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.post.FundingStatus;
+import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.HelpCategory;
 import com.soft.campushelper.post.Post;
 import lombok.Builder;
-
-import java.time.LocalDateTime;
 
 public class PostRequest {
 
@@ -16,9 +13,8 @@ public class PostRequest {
             String title,
             String content,
             int reward,
-            boolean processStatus,
             boolean allowGroupFunding,
-            String category,
+            HelpCategory category,
             int remainingTime,
             double latitude,
             double longitude
@@ -30,8 +26,7 @@ public class PostRequest {
                     .writer(member)
                     .reward(reward)
                     .allowGroupFunding(allowGroupFunding)
-                    .processStatus(processStatus)
-                    .category(HelpCategory.fromDescription(category))
+                    .category(category)
                     .remainingTime(remainingTime)
                     .latitude(latitude)
                     .longitude(longitude)

@@ -1,7 +1,7 @@
 package com.soft.campushelper.post.service;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.Member.service.MemberReaderService;
+import com.soft.campushelper.member.Member;
+import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.controller.dto.PostRequest;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

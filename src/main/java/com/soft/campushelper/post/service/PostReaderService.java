@@ -1,6 +1,6 @@
 package com.soft.campushelper.post.service;
 
-import com.soft.campushelper.Member.Member;
+import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;

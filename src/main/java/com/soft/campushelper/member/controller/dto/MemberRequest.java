@@ -1,4 +1,4 @@
-package com.soft.campushelper.Member.controller.dto;
+package com.soft.campushelper.member.controller.dto;
 
 import lombok.Builder;
 
