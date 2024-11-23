@@ -20,6 +20,9 @@ public class PostController {
 
     private final PostService postService;
 
+    /**
+     * 게시글 등록
+     */
     @PostMapping
     public GlobalResponse addPost(
             @Authenticate Long memberId,
@@ -29,6 +32,9 @@ public class PostController {
         return GlobalResponse.builder().message("게시글 등록이 완료되었습니다.").build();
     }
 
+    /**
+     * 게시글 리스트 반환
+     */
     @GetMapping
     public PagingResponse<PostResponse.Info> getPostList(
             @PageableDefault(page = 0, size = 10) Pageable pageable,
@@ -48,6 +54,10 @@ public class PostController {
         }
     }
 
+    /**
+     * 게시글 단건 조회
+     */
+
     @GetMapping("/{post-id}")
     public PostResponse.Info getPost(
             @PathVariable("post-id") Long postId
@@ -57,6 +67,9 @@ public class PostController {
     
     //TODO 게시물 수정
 
+    /**
+     * 게시글 삭제
+     */
     @DeleteMapping("/{post-id}")
     public GlobalResponse deletePost(
             @Authenticate Long memberId,
@@ -65,6 +78,10 @@ public class PostController {
         postService.deletePost(memberId, postId);
         return GlobalResponse.builder().message("게시물 삭제가 완료되었습니다.").build();
     }
+
+    /**
+     * 로그인한 유저가 작성한 게시글 조회
+     */
 
     @GetMapping("/my")
     public PagingResponse<PostResponse.Info> getMyPostList(
