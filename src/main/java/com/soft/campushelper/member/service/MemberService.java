@@ -55,13 +55,19 @@ public class MemberService {
         return jwtProvider.createToken(member.getId(), member.getRole());
     }
 
-    @GetMapping
+    @Transactional
     public MemberResponse.Info getMemberInfo(Long memberId){
         Member member = memberReaderService.getMemberById(memberId);
 
         return MemberResponse.Info.from(member);
 
 
+    }
+
+    @Transactional
+    public void pointUp(Long memberId) {
+        Member member = memberReaderService.getMemberById(memberId);
+        member.increasePoint(100000);
     }
 
 
@@ -76,4 +82,6 @@ public class MemberService {
             throw new RuntimeException("비밀번호 해시 처리 실패", e);
         }
     }
+
+
 }
