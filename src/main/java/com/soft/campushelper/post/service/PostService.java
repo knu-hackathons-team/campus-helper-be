@@ -46,6 +46,16 @@ public class PostService {
     }
 
     /**
+     * 게시글 단건 조회
+     */
+    @Transactional(readOnly = true)
+    public PostResponse.Info getPost(Long memberId, Long postId){
+        Member member = memberReaderService.getMemberById(memberId);
+        Post post = postReaderService.getPostById(postId);
+        return PostResponse.Info.from(post);
+    }
+
+    /**
      * 게시물을 삭제하는 메서드
      * @param memberId
      * @param postId

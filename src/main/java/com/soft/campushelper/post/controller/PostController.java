@@ -36,6 +36,14 @@ public class PostController {
 
         return PagingResponse.from(postList);
     }
+
+    @GetMapping("/{post-id}")
+    public PostResponse.Info getPost(
+            @Authenticate Long memberId,
+            @PathVariable Long postId
+    ){
+        return postService.getPost(memberId, postId);
+    }
     
     //TODO 게시물 수정
 
