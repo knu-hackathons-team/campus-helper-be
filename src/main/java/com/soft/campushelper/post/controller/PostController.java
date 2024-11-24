@@ -6,6 +6,7 @@ import com.soft.campushelper.global.dto.PagingResponse;
 import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
 import com.soft.campushelper.post.service.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,11 +31,21 @@ public class PostController {
 
     @GetMapping
     public PagingResponse<PostResponse.Info> getPostList(
-            @PageableDefault(page = 0, size = 10) Pageable pageable
+            @PageableDefault(page = 0, size = 10) Pageable pageable,
+            HttpServletRequest request
     ){
-        Page<PostResponse.Info> postList = postService.getPostList(pageable);
-
-        return PagingResponse.from(postList);
+        String memberId = (String) request.getAttribute("memberId");
+        if (memberId != null) {
+            // 로그인 사용자
+            return PagingResponse.from(
+                    postService.getPostList(pageable, Long.parseLong(memberId))
+            );
+        } else {
+            // 비로그인 사용자
+            return PagingResponse.from(
+                    postService.getPostList(pageable, null)
+            );
+        }
     }
 
     @GetMapping("/{post-id}")

@@ -40,9 +40,16 @@ public class PostService {
      * 비회원, 회원 모두 가능
      */
     @Transactional(readOnly = true)
-    public Page<PostResponse.Info> getPostList(Pageable pageable){
-        Page<Post> postList = postReaderService.getPostList(pageable);
-        return postList.map(PostResponse.Info::from);
+    public Page<PostResponse.Info> getPostList(Pageable pageable, Long memberId){
+        return postReaderService.getPostList(pageable).
+                map(post -> {
+            boolean isRemovable = false;
+            if (memberId != null) {
+                Member member = memberReaderService.getMemberById(memberId);
+                isRemovable = post.isWriter(member);
+            }
+            return PostResponse.Info.from(post, isRemovable);
+        });
     }
 
     /**
