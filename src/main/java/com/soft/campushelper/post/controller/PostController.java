@@ -40,7 +40,7 @@ public class PostController {
     @GetMapping("/{post-id}")
     public PostResponse.Info getPost(
             @Authenticate Long memberId,
-            @PathVariable Long postId
+            @PathVariable("post-id") Long postId
     ){
         return postService.getPost(memberId, postId);
     }
@@ -50,7 +50,7 @@ public class PostController {
     @DeleteMapping("/{post-id}")
     public GlobalResponse deletePost(
             @Authenticate Long memberId,
-            @PathVariable(name = "post-id") Long postId
+            @PathVariable("post-id") Long postId
     ){
         postService.deletePost(memberId, postId);
         return GlobalResponse.builder().message("게시물 삭제가 완료되었습니다.").build();
