@@ -31,7 +31,8 @@ public class PostResponse {
             double longitude,
             Integer reward,
             String createdAt,
-            boolean removable
+            boolean removable,
+            int currentParticipants
 
     ){
         public static Info from(Post post, boolean removable){
@@ -49,6 +50,7 @@ public class PostResponse {
                     .reward(post.getReward())
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .removable(removable)
+                    .currentParticipants(post.getCurrentParticipants())
                     .build();
         }
         public static Info from(Post post){
@@ -66,6 +68,7 @@ public class PostResponse {
                     .reward(post.getReward())
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .removable(false)
+                    .currentParticipants(post.getCurrentParticipants())
                     .build();
         }
     }
