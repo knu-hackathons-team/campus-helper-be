@@ -31,10 +31,10 @@ public class PostResponse {
             double longitude,
             Integer reward,
             String createdAt,
-            boolean removeable
+            boolean removable
 
     ){
-        public static Info from(Post post, boolean removeable){
+        public static Info from(Post post, boolean removable){
             return Info.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -48,7 +48,7 @@ public class PostResponse {
                     .longitude(post.getLongitude())
                     .reward(post.getReward())
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                    .removeable(removeable)
+                    .removable(removable)
                     .build();
         }
         public static Info from(Post post){
@@ -65,7 +65,7 @@ public class PostResponse {
                     .longitude(post.getLongitude())
                     .reward(post.getReward())
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                    .removeable(false)
+                    .removable(false)
                     .build();
         }
     }
