@@ -49,8 +49,7 @@ public class PostService {
      * 게시글 단건 조회
      */
     @Transactional(readOnly = true)
-    public PostResponse.Info getPost(Long memberId, Long postId){
-        Member member = memberReaderService.getMemberById(memberId);
+    public PostResponse.Info getPost(Long postId){
         Post post = postReaderService.getPostById(postId);
         return PostResponse.Info.from(post);
     }

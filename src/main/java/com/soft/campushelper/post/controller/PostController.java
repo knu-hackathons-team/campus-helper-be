@@ -39,10 +39,9 @@ public class PostController {
 
     @GetMapping("/{post-id}")
     public PostResponse.Info getPost(
-            @Authenticate Long memberId,
             @PathVariable("post-id") Long postId
     ){
-        return postService.getPost(memberId, postId);
+        return postService.getPost(postId);
     }
     
     //TODO 게시물 수정
