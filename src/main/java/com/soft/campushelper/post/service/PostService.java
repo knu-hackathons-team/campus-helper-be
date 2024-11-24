@@ -78,6 +78,10 @@ public class PostService {
         postWriterService.delete(post);
     }
 
+    /**
+     * 로그인한 유저가 작성한 게시물 리스트 반환
+     */
+
     @Transactional(readOnly = true)
     public Page<PostResponse.Info> getMemberPostList(Long memberId, Pageable pageable){
         Member member = memberReaderService.getMemberById(memberId);
