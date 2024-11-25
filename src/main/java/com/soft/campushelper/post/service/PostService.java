@@ -57,9 +57,16 @@ public class PostService {
      * 게시글 단건 조회
      */
     @Transactional(readOnly = true)
-    public PostResponse.Info getPost(Long postId){
+    public PostResponse.Info getPost(Long postId, Long memberId) {
         Post post = postReaderService.getPostById(postId);
-        return PostResponse.Info.from(post);
+        boolean isRemovable = false;
+
+        if (memberId != null) {
+            Member member = memberReaderService.getMemberById(memberId);
+            isRemovable = post.isWriter(member);
+        }
+
+        return PostResponse.Info.from(post, isRemovable);
     }
 
     /**

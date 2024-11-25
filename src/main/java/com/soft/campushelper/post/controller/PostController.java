@@ -60,9 +60,15 @@ public class PostController {
 
     @GetMapping("/{post-id}")
     public PostResponse.Info getPost(
-            @PathVariable("post-id") Long postId
-    ){
-        return postService.getPost(postId);
+            @PathVariable("post-id") Long postId,
+            HttpServletRequest request
+    ) {
+        String memberId = (String) request.getAttribute("memberId");
+        if (memberId != null) {
+            return postService.getPost(postId, Long.parseLong(memberId));
+        } else {
+            return postService.getPost(postId, null);
+        }
     }
     
     //TODO 게시물 수정
