@@ -88,7 +88,7 @@ public class PostService {
         Member member = memberReaderService.getMemberById(memberId);
         Page<Post> postList = postReaderService.getPostListByWriter(member, pageable);
 
-        return postList.map(PostResponse.Info::from);
+        return postList.map(post -> PostResponse.Info.from(post, true));
     }
 
 }
