@@ -1,6 +1,6 @@
-package com.soft.campushelper.Member.repository;
+package com.soft.campushelper.member.repository;
 
-import com.soft.campushelper.Member.Member;
+import com.soft.campushelper.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

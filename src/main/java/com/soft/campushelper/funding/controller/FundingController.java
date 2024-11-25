@@ -18,7 +18,7 @@ public class FundingController {
     @PostMapping("/post/{post-id}/participate")
     public GlobalResponse participateInPost(
             @Authenticate Long memberId,
-            @PathVariable(name = "post-id") Long postId
+            @PathVariable("post-id") Long postId
     ) {
         fundingService.participateInPost(memberId, postId);
         return GlobalResponse.builder().message("펀딩 참여가 완료되었습니다.").build();

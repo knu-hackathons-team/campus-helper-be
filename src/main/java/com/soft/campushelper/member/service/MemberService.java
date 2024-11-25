@@ -1,9 +1,9 @@
-package com.soft.campushelper.Member.service;
+package com.soft.campushelper.member.service;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.Member.controller.dto.MemberRequest;
-import com.soft.campushelper.Member.Role;
-import com.soft.campushelper.Member.controller.dto.MemberResponse;
+import com.soft.campushelper.member.Member;
+import com.soft.campushelper.member.controller.dto.MemberRequest;
+import com.soft.campushelper.member.Role;
+import com.soft.campushelper.member.controller.dto.MemberResponse;
 import com.soft.campushelper.global.auth.JwtProvider;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.global.exception.EntityNotFoundException;
@@ -55,13 +55,19 @@ public class MemberService {
         return jwtProvider.createToken(member.getId(), member.getRole());
     }
 
-    @GetMapping
+    @Transactional
     public MemberResponse.Info getMemberInfo(Long memberId){
         Member member = memberReaderService.getMemberById(memberId);
 
         return MemberResponse.Info.from(member);
 
 
+    }
+
+    @Transactional
+    public void pointUp(Long memberId) {
+        Member member = memberReaderService.getMemberById(memberId);
+        member.increasePoint(100000);
     }
 
 
@@ -76,4 +82,6 @@ public class MemberService {
             throw new RuntimeException("비밀번호 해시 처리 실패", e);
         }
     }
+
+
 }

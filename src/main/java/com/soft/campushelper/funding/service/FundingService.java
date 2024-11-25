@@ -1,9 +1,9 @@
 package com.soft.campushelper.funding.service;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.Member.service.MemberReaderService;
-import com.soft.campushelper.funding.Funding;
 import com.soft.campushelper.funding.ParticipationStatus;
+import com.soft.campushelper.member.Member;
+import com.soft.campushelper.member.service.MemberReaderService;
+import com.soft.campushelper.funding.Funding;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.service.PostReaderService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class FundingService {
         Post post = postReaderService.getPostById(postId);
 
         //펀딩 가능상태 체크
-        if (!post.isFundingEnabled()) {
+        if (!post.isAllowGroupFunding()) {
             throw new IllegalStateException("펀딩이 불가능한 게시글입니다.");
         }
         // 이미 참여했는지 확인
@@ -35,7 +35,8 @@ public class FundingService {
         Funding funding = Funding.builder()
                 .post(post)
                 .participant(member)
-                .amount(100) //TODO 펀딩 금액 조절
+                .amount(100)//TODO 펀딩 금액 조절
+                .status(ParticipationStatus.IN_PROGRESS)
                 .build();
 
         post.addParticipant(funding.getAmount());

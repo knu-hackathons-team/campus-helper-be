@@ -1,8 +1,7 @@
 package com.soft.campushelper.funding;
 
-import com.soft.campushelper.Member.Member;
+import com.soft.campushelper.member.Member;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
-import com.soft.campushelper.post.FundingStatus;
 import com.soft.campushelper.post.Post;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +28,6 @@ public class Funding extends BaseTimeEntity {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private ParticipationStatus status = ParticipationStatus.PENDING;
+    private ParticipationStatus status = ParticipationStatus.NOT_STARTED;
 
 }

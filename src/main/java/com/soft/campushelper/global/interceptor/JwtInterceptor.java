@@ -5,6 +5,7 @@ import com.soft.campushelper.global.exception.AuthenticationException;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * 토큰에서 추출한 사용자 정보(memberId, role)를 request에 저장
  * 컨트롤러 실행 전에 동작 (preHandle)
  */
+@Slf4j
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
 
@@ -40,7 +42,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         request.setAttribute("memberId", claim.getSubject());
         request.setAttribute("role", claim.get("role"));
 
-        System.out.println("userId: " + claim.getSubject());
+        log.info("member Id : {}", claim.getSubject());
         return true;
     }
 }

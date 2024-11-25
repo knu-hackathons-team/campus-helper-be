@@ -1,12 +1,11 @@
 package com.soft.campushelper.post.controller.dto;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.post.FundingStatus;
 import com.soft.campushelper.post.HelpCategory;
 import com.soft.campushelper.post.Post;
+import com.soft.campushelper.post.ProcessStatus;
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PostResponse {
@@ -20,30 +19,57 @@ public class PostResponse {
     }
     @Builder
     public record Info(
+            Long id,
             String college,
             String writer,
             String title,
             String content,
             HelpCategory category,
-            FundingStatus fundingStatus,
-            Integer distance,
-            LocalDateTime endTime,
-            Integer reward
+            ProcessStatus processingStatus,
+            boolean allowGroupFunding,
+            double latitude,
+            double longitude,
+            Integer reward,
+            String createdAt,
+            boolean removable,
+            int currentParticipants
 
     ){
-        public static Info from(Post post){
+        public static Info from(Post post, boolean removable){
             return Info.builder()
+                    .id(post.getId())
                     .college(post.getWriter().getCollege())
                     .writer(post.getWriter().getNickname())
                     .title(post.getTitle())
                     .content(post.getContent())
                     .category(post.getCategory())
-                    .fundingStatus(post.getFundingStatus())
-                    .distance(post.getDistance())
-                    .endTime(post.getEndTime())
+                    .allowGroupFunding(post.isAllowGroupFunding())
+                    .processingStatus(post.getProcessStatus())
+                    .latitude(post.getLatitude())
+                    .longitude(post.getLongitude())
                     .reward(post.getReward())
+                    .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                    .removable(removable)
+                    .currentParticipants(post.getCurrentParticipants())
                     .build();
         }
-
+        public static Info from(Post post){
+            return Info.builder()
+                    .id(post.getId())
+                    .college(post.getWriter().getCollege())
+                    .writer(post.getWriter().getNickname())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .category(post.getCategory())
+                    .allowGroupFunding(post.isAllowGroupFunding())
+                    .processingStatus(post.getProcessStatus())
+                    .latitude(post.getLatitude())
+                    .longitude(post.getLongitude())
+                    .reward(post.getReward())
+                    .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                    .removable(false)
+                    .currentParticipants(post.getCurrentParticipants())
+                    .build();
+        }
     }
 }

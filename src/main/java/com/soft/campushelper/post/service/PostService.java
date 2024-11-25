@@ -1,7 +1,7 @@
 package com.soft.campushelper.post.service;
 
-import com.soft.campushelper.Member.Member;
-import com.soft.campushelper.Member.service.MemberReaderService;
+import com.soft.campushelper.member.Member;
+import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.controller.dto.PostRequest;
@@ -37,12 +37,28 @@ public class PostService {
 
     /**
      * 게시물 목록을 페이징으로 반환하는 메서드
+     * 비회원, 회원 모두 가능
      */
     @Transactional(readOnly = true)
-    public Page<PostResponse.Info> getPostList(Long memberId, Pageable pageable){
-        Member member = memberReaderService.getMemberById(memberId);
-        Page<Post> postList = postReaderService.getPostList(member, pageable);
-        return postList.map(PostResponse.Info::from);
+    public Page<PostResponse.Info> getPostList(Pageable pageable, Long memberId){
+        return postReaderService.getPostList(pageable).
+                map(post -> {
+            boolean isRemovable = false;
+            if (memberId != null) {
+                Member member = memberReaderService.getMemberById(memberId);
+                isRemovable = post.isWriter(member);
+            }
+            return PostResponse.Info.from(post, isRemovable);
+        });
+    }
+
+    /**
+     * 게시글 단건 조회
+     */
+    @Transactional(readOnly = true)
+    public PostResponse.Info getPost(Long postId){
+        Post post = postReaderService.getPostById(postId);
+        return PostResponse.Info.from(post);
     }
 
     /**
@@ -60,6 +76,18 @@ public class PostService {
         }
 
         postWriterService.delete(post);
+    }
+
+    /**
+     * 로그인한 유저가 작성한 게시물 리스트 반환
+     */
+
+    @Transactional(readOnly = true)
+    public Page<PostResponse.Info> getMemberPostList(Long memberId, Pageable pageable){
+        Member member = memberReaderService.getMemberById(memberId);
+        Page<Post> postList = postReaderService.getPostListByWriter(member, pageable);
+
+        return postList.map(PostResponse.Info::from);
     }
 
 }

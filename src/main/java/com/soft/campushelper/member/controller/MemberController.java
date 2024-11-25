@@ -1,17 +1,13 @@
-package com.soft.campushelper.Member.controller;
+package com.soft.campushelper.member.controller;
 
-import com.soft.campushelper.Member.controller.dto.MemberRequest;
-import com.soft.campushelper.Member.controller.dto.MemberResponse;
-import com.soft.campushelper.Member.service.MemberService;
+import com.soft.campushelper.member.controller.dto.MemberRequest;
+import com.soft.campushelper.member.controller.dto.MemberResponse;
+import com.soft.campushelper.member.service.MemberService;
 import com.soft.campushelper.global.annotation.Authenticate;
 import com.soft.campushelper.global.dto.GlobalResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,5 +39,13 @@ public class MemberController {
             @Authenticate Long memberId
     ) {
         return ResponseEntity.ok(memberService.getMemberInfo(memberId));
+    }
+
+    @GetMapping("/point")
+    public GlobalResponse addPoint(
+            @Authenticate Long memberId
+    ){
+        memberService.pointUp(memberId);
+        return GlobalResponse.builder().message("포인트 증가").build();
     }
 }
