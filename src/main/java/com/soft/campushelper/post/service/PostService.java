@@ -9,6 +9,7 @@ import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
 import com.soft.campushelper.work.service.WorkReaderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
 
     private final MemberReaderService memberReaderService;
@@ -47,11 +49,16 @@ public class PostService {
         return postReaderService.getPostList(pageable).
                 map(post -> {
             boolean isRemovable = false;
-            if (memberId != null) {
-                Member member = memberReaderService.getMemberById(memberId);
-                isRemovable = post.isWriter(member);
+            boolean isWorker = false;
+            if (memberId == null) {
+                return PostResponse.Info.from(post, isRemovable, isWorker);
             }
-            return PostResponse.Info.from(post, isRemovable);
+
+            Member member = memberReaderService.getMemberById(memberId);
+            isRemovable = post.isWriter(member);
+            isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
+
+            return PostResponse.Info.from(post, isRemovable, isWorker);
         });
     }
 
@@ -62,13 +69,16 @@ public class PostService {
     public PostResponse.Info getPost(Long postId, Long memberId) {
         Post post = postReaderService.getPostById(postId);
         boolean isRemovable = false;
-
-        if (memberId != null) {
-            Member member = memberReaderService.getMemberById(memberId);
-            isRemovable = post.isWriter(member);
+        boolean isWorker = false;
+        if (memberId == null) {
+            return PostResponse.Info.from(post, isRemovable, isWorker);
         }
 
-        return PostResponse.Info.from(post, isRemovable);
+        Member member = memberReaderService.getMemberById(memberId);
+        isRemovable = post.isWriter(member);
+        isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
+
+        return PostResponse.Info.from(post, isRemovable, isWorker);
     }
 
     /**
@@ -96,8 +106,11 @@ public class PostService {
     public Page<PostResponse.Info> getMemberPostList(Long memberId, Pageable pageable){
         Member member = memberReaderService.getMemberById(memberId);
         Page<Post> postList = postReaderService.getPostListByWriter(member, pageable);
-
-        return postList.map(post -> PostResponse.Info.from(post, true));
+        return postList.map(post -> {
+                    boolean isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
+                    return PostResponse.Info.from(post, true, isWorker);
+                }
+        );
     }
 
     @Transactional(readOnly = true)

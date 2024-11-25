@@ -34,10 +34,10 @@ public class PostResponse {
             String createdAt,
             boolean removable,
             int currentParticipants,
-            ProcessStatus processStatus
+            boolean isWorker
 
     ){
-        public static Info from(Post post, boolean removable){
+        public static Info from(Post post, boolean removable, boolean isWorker){
             return Info.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -54,6 +54,7 @@ public class PostResponse {
                     .removable(removable)
                     .currentParticipants(post.getCurrentParticipants())
                     .processingStatus(post.getProcessStatus())
+                    .isWorker(isWorker)
                     .build();
         }
         public static Info from(Post post){
