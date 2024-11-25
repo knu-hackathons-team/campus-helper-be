@@ -3,6 +3,7 @@ package com.soft.campushelper.post.controller.dto;
 import com.soft.campushelper.post.HelpCategory;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.ProcessStatus;
+import com.soft.campushelper.work.WorkStatus;
 import lombok.Builder;
 
 import java.time.format.DateTimeFormatter;
@@ -32,7 +33,8 @@ public class PostResponse {
             Integer reward,
             String createdAt,
             boolean removable,
-            int currentParticipants
+            int currentParticipants,
+            ProcessStatus processStatus
 
     ){
         public static Info from(Post post, boolean removable){
@@ -51,6 +53,7 @@ public class PostResponse {
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .removable(removable)
                     .currentParticipants(post.getCurrentParticipants())
+                    .processingStatus(post.getProcessStatus())
                     .build();
         }
         public static Info from(Post post){
@@ -69,6 +72,47 @@ public class PostResponse {
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .removable(false)
                     .currentParticipants(post.getCurrentParticipants())
+                    .processingStatus(post.getProcessStatus())
+                    .build();
+        }
+    }
+
+    @Builder
+    public record MyWorkInfo(
+            Long id,
+            String college,
+            String writer,
+            String title,
+            String content,
+            HelpCategory category,
+            ProcessStatus processingStatus,
+            boolean allowGroupFunding,
+            double latitude,
+            double longitude,
+            Integer reward,
+            String createdAt,
+            boolean removable,
+            int currentParticipants,
+            WorkStatus workStatus
+
+    ){
+        public static MyWorkInfo from(Post post, WorkStatus workStatus){
+            return MyWorkInfo.builder()
+                    .id(post.getId())
+                    .college(post.getWriter().getCollege())
+                    .writer(post.getWriter().getNickname())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .category(post.getCategory())
+                    .allowGroupFunding(post.isAllowGroupFunding())
+                    .processingStatus(post.getProcessStatus())
+                    .latitude(post.getLatitude())
+                    .longitude(post.getLongitude())
+                    .reward(post.getReward())
+                    .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                    .removable(true)
+                    .currentParticipants(post.getCurrentParticipants())
+                    .workStatus(workStatus)
                     .build();
         }
     }

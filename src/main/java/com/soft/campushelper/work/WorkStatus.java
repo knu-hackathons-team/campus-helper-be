@@ -4,13 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum WorkStatus {
-    NOT_STARTED("미시작"),
-    IN_PROGRESS("진행중"),
-    COMPLETED("완료");
+    NOT_STARTED,
+    IN_PROGRESS,
+    COMPLETED
 
-    private final String description;
-
-    WorkStatus(String description) {
-        this.description = description;
-    }
 }

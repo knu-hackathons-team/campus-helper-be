@@ -7,6 +7,7 @@ import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
+import com.soft.campushelper.work.service.WorkReaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ public class PostService {
     private final MemberReaderService memberReaderService;
     private final PostReaderService postReaderService;
     private final PostWriterService postWriterService;
+    private final WorkReaderService workReaderService;
 
     /**
      * 게시물을 추가하는 메서드
@@ -96,6 +98,19 @@ public class PostService {
         Page<Post> postList = postReaderService.getPostListByWriter(member, pageable);
 
         return postList.map(post -> PostResponse.Info.from(post, true));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostResponse.MyWorkInfo> getPostListByWorker(Long memberId, Pageable pageable){
+        Member member = memberReaderService.getMemberById(memberId);
+        return workReaderService.findAllByWorker(member, pageable)
+                .map(
+                        work -> {
+                            Post post = work.getPost();
+                            return PostResponse.MyWorkInfo.from(post, work.getStatus());
+                        }
+                );
+
     }
 
 }

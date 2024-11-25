@@ -97,4 +97,13 @@ public class PostController {
         Page<PostResponse.Info> memberPostList = postService.getMemberPostList(memberId, pageable);
         return PagingResponse.from(memberPostList);
     }
+
+    @GetMapping("/my/work")
+    public PagingResponse<PostResponse.MyWorkInfo> getMyWorkPostList(
+            @Authenticate Long memberId,
+            @PageableDefault(page = 0, size = 10) Pageable pageable
+    ){
+        Page<PostResponse.MyWorkInfo> postListByWorker = postService.getPostListByWorker(memberId, pageable);
+        return PagingResponse.from(postListByWorker);
+    }
 }
