@@ -60,8 +60,8 @@ jobs:
           script: |
             docker stop campushelper || true
             docker rm campushelper || true
-#            사용하지 않는 리소스 정리
             docker system prune -af --volumes
+            
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/campushelper:latest
             docker run -d --name campushelper \
             -e SPRING_PROFILES_ACTIVE=prod \  
