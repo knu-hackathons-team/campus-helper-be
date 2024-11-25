@@ -32,6 +32,10 @@ public class MemberService {
                 .ifPresent(member -> {
                     throw new IllegalArgumentException(MessageConstants.DUPLICATE_LOGIN_ID);
                 });
+        memberReaderService.getMemberByNickname(request.nickname())
+                .ifPresent(member -> {
+                    throw new IllegalArgumentException(MessageConstants.DUPLICATE_NICKNAME);
+                });
 
         Member member = Member.builder()
                 .loginId(request.loginId())

@@ -27,4 +27,9 @@ public class MemberReaderService {
     public Optional<Member> getMemberByLoginId(String loginId) {
         return memberRepository.findByLoginId(loginId);
     }
+
+    @Transactional(readOnly = true)
+    public Optional<Member> getMemberByNickname(String nickname) {
+        return memberRepository.findByNickname(nickname);
+    }
 }

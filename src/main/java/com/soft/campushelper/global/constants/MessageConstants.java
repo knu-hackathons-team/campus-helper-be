@@ -5,6 +5,7 @@ public final class MessageConstants {
     // 회원 관련
     public static final String MEMBER_NOT_FOUND = "존재하지 않는 회원입니다.";
     public static final String DUPLICATE_LOGIN_ID = "이미 존재하는 ID입니다.";
+    public static final String DUPLICATE_NICKNAME = "중복된 닉네임을 사용할 수 없습니다.";
     public static final String INVALID_PASSWORD = "비밀번호가 일치하지 않습니다.";
     public static final String INSUFFICIENT_POINTS = "포인트가 부족합니다.";
 

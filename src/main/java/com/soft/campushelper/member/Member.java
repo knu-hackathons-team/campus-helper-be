@@ -6,6 +6,7 @@ import com.soft.campushelper.global.exception.InvalidConditionException;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.work.Work;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -21,17 +22,24 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String loginId;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
     private String college;
 
+    @Column(nullable = false)
+    @PositiveOrZero
     private int point;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     @OneToMany(mappedBy = "writer")
