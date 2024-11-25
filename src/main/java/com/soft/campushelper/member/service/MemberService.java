@@ -1,5 +1,6 @@
 package com.soft.campushelper.member.service;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.controller.dto.MemberRequest;
 import com.soft.campushelper.member.Role;
@@ -29,7 +30,7 @@ public class MemberService {
     public void register(MemberRequest.Register request) {
         memberReaderService.getMemberByLoginId(request.loginId())
                 .ifPresent(member -> {
-                    throw new IllegalArgumentException("이미 존재하는 ID입니다.");
+                    throw new IllegalArgumentException(MessageConstants.DUPLICATE_LOGIN_ID);
                 });
 
         Member member = Member.builder()
@@ -49,7 +50,7 @@ public class MemberService {
         );
 
         if (!member.getPassword().equals(hashPassword(request.password()))) {
-            throw new AuthenticationException("비밀번호가 일치하지 않습니다.");
+            throw new AuthenticationException(MessageConstants.INVALID_PASSWORD);
         }
 
         return jwtProvider.createToken(member.getId(), member.getRole());

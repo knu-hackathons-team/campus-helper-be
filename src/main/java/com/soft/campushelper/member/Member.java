@@ -1,5 +1,6 @@
 package com.soft.campushelper.member;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
 import com.soft.campushelper.global.exception.InvalidConditionException;
 import com.soft.campushelper.post.Post;
@@ -41,7 +42,7 @@ public class Member extends BaseTimeEntity {
 
     public void decreasePoint(int point){
         if(this.point - point < 0){
-            throw new InvalidConditionException("포인트가 부족합니다.");
+            throw new InvalidConditionException(MessageConstants.INSUFFICIENT_POINTS);
         }
         this.point -= point;
     }

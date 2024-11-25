@@ -1,6 +1,7 @@
 package com.soft.campushelper.post;
 
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
 import com.soft.campushelper.work.Work;
@@ -73,7 +74,7 @@ public class Post extends BaseTimeEntity {
 
     public void addParticipant(int fundingAmount) {
         if (!isAllowGroupFunding()) {
-            throw new IllegalStateException("펀딩이 불가능한 게시글입니다.");
+            throw new IllegalStateException(MessageConstants.FUNDING_NOT_ALLOWED);
         }
         this.currentParticipants++; //현재 펀딩참가자수 증가
         this.reward += fundingAmount; // 게시글의 보상금에서 펀딩 금액만큼 더해줌
@@ -83,11 +84,11 @@ public class Post extends BaseTimeEntity {
     // 수행자 할당 메서드
     public void assignWorker(Member worker) {
         if (this.processStatus != ProcessStatus.NOT_STARTED) {
-            throw new IllegalStateException("이미 진행 중이거나 완료된 요청입니다.");
+            throw new IllegalStateException(MessageConstants.INVALID_WORK_STATUS);
         }
 
         if (this.work != null) {
-            throw new IllegalStateException("이미 수행자가 할당되었습니다.");
+            throw new IllegalStateException(MessageConstants.ALREADY_HAS_WORKER);
         }
 
         this.work = Work.builder()
@@ -99,7 +100,7 @@ public class Post extends BaseTimeEntity {
     }
     public void complete() {
         if (this.processStatus != ProcessStatus.IN_PROGRESS) {
-            throw new IllegalStateException("진행 중인 요청만 완료할 수 있습니다.");
+            throw new IllegalStateException(MessageConstants.INVALID_WORK_STATUS);
         }
         this.processStatus = ProcessStatus.COMPLETED;
 

@@ -1,8 +1,10 @@
 package com.soft.campushelper.global.resolver;
 
 import com.soft.campushelper.global.annotation.Authenticate;
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.aspectj.bridge.Message;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -27,7 +29,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
         String memberId = (String) request.getAttribute("memberId");
 
         if (memberId == null) {
-            throw new AuthenticationException("로그인 후 이용해 주세요.");
+            throw new AuthenticationException(MessageConstants.LOGIN_REQUIRED);
         }
 
         return Long.parseLong(memberId);

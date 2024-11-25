@@ -1,5 +1,6 @@
 package com.soft.campushelper.work;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
@@ -41,7 +42,7 @@ public class Work extends BaseTimeEntity {
 
     public void complete() {
         if (this.status != WorkStatus.IN_PROGRESS) {
-            throw new IllegalStateException("진행 중인 작업만 완료할 수 있습니다.");
+            throw new IllegalStateException(MessageConstants.INVALID_WORK_STATUS);
         }
         this.status = WorkStatus.COMPLETED;
         this.completedAt = LocalDateTime.now();

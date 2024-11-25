@@ -1,5 +1,6 @@
 package com.soft.campushelper.work.service;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.post.Post;
@@ -35,7 +36,7 @@ public class WorkService {
 
         // 작업 수행자 검증
         if (!work.isCorrectWorker(member)) {
-            throw new IllegalStateException("작업 수행자만 완료할 수 있습니다.");
+            throw new IllegalStateException(MessageConstants.NOT_WORK_PERFORMER);
         }
 
         // 작업 완료 처리

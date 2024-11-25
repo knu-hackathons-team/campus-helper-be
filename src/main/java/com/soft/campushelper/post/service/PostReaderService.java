@@ -1,5 +1,6 @@
 package com.soft.campushelper.post.service;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.repository.PostRepository;
@@ -18,7 +19,7 @@ public class PostReaderService {
     @Transactional(readOnly = true)
     public Post getPostById(Long postId){
         return postRepository.findById(postId).orElseThrow(
-                () -> new EntityNotFoundException("해당 게시물이 존재하지 않습니다.")
+                () -> new EntityNotFoundException(MessageConstants.POST_NOT_FOUND)
         );
     }
 

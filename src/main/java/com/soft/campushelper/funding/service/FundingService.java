@@ -1,6 +1,7 @@
 package com.soft.campushelper.funding.service;
 
 import com.soft.campushelper.funding.ParticipationStatus;
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.funding.Funding;
@@ -25,11 +26,11 @@ public class FundingService {
 
         //펀딩 가능상태 체크
         if (!post.isAllowGroupFunding()) {
-            throw new IllegalStateException("펀딩이 불가능한 게시글입니다.");
+            throw new IllegalStateException(MessageConstants.FUNDING_NOT_ALLOWED);
         }
         // 이미 참여했는지 확인
         if (fundingReaderService.existsByPostAndParticipant(post, member)) {
-            throw new IllegalStateException("이미 참여한 요청입니다.");
+            throw new IllegalStateException(MessageConstants.ALREADY_PARTICIPATED);
         }
 
         Funding funding = Funding.builder()

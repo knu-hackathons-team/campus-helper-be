@@ -1,5 +1,6 @@
 package com.soft.campushelper.post.service;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.global.exception.AuthenticationException;
@@ -72,7 +73,7 @@ public class PostService {
         Post post = postReaderService.getPostById(postId);
 
         if (!post.isWriter(member)) {
-            throw new AuthenticationException("게시글 삭제 권한이 없습니다.");
+            throw new AuthenticationException(MessageConstants.NOT_POST_WRITER);
         }
 
         postWriterService.delete(post);

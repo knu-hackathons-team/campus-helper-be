@@ -1,6 +1,7 @@
 package com.soft.campushelper.global.interceptor;
 
 import com.soft.campushelper.global.auth.JwtProvider;
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,7 +36,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             return true;
         }
         if (!authHeader.startsWith(TOKEN_PREFIX)) {
-            throw new AuthenticationException("유효하지 않은 토큰입니다.");
+            throw new AuthenticationException(MessageConstants.INVALID_TOKEN);
         }
 
         Claims claim = jwtProvider.getClaim(authHeader.substring(7));

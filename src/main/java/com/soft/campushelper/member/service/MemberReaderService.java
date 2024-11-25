@@ -1,5 +1,6 @@
 package com.soft.campushelper.member.service;
 
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.repository.MemberRepository;
 import com.soft.campushelper.global.exception.EntityNotFoundException;
@@ -18,10 +19,9 @@ public class MemberReaderService {
     @Transactional(readOnly = true)
     public Member getMemberById(Long memberId){
         return memberRepository.findById(memberId).orElseThrow(
-                () -> new EntityNotFoundException("멤버 ID가 존재하지 않습니다.")
+                () -> new EntityNotFoundException(MessageConstants.MEMBER_NOT_FOUND)
         );
     }
-
 
     @Transactional(readOnly = true)
     public Optional<Member> getMemberByLoginId(String loginId) {
