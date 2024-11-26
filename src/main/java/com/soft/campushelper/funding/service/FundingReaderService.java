@@ -5,6 +5,7 @@ import com.soft.campushelper.funding.repository.FundingRepository;
 import com.soft.campushelper.post.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,4 +16,6 @@ public class FundingReaderService {
     public boolean existsByPostAndParticipant(Post post, Member member){
         return fundingRepository.existsByPostAndParticipant(post, member);
     }
+
+
 }

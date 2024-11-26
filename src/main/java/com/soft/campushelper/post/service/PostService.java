@@ -1,5 +1,6 @@
 package com.soft.campushelper.post.service;
 
+import com.soft.campushelper.funding.service.FundingReaderService;
 import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
@@ -24,6 +25,7 @@ public class PostService {
     private final PostReaderService postReaderService;
     private final PostWriterService postWriterService;
     private final WorkReaderService workReaderService;
+    private final FundingReaderService fundingReaderService;
 
     /**
      * 게시물을 추가하는 메서드
@@ -70,15 +72,23 @@ public class PostService {
         Post post = postReaderService.getPostById(postId);
         boolean isRemovable = false;
         boolean isWorker = false;
-        if (memberId == null) {
-            return PostResponse.Info.from(post, isRemovable, isWorker);
+        if (memberId == null) { //비회원일때
+            return PostResponse.Info.from(post, isRemovable, isWorker,"");
         }
 
         Member member = memberReaderService.getMemberById(memberId);
         isRemovable = post.isWriter(member);
         isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
 
-        return PostResponse.Info.from(post, isRemovable, isWorker);
+        boolean isParticipant = fundingReaderService.existsByPostAndParticipant(post, member);
+
+        String finishContent = "";
+        //공동펀딩의 펀딩자 이거나 게시물의 작성자 일때, 수행완료글이 존재한다면
+        if((post.isWriter(member) || isParticipant) && (post.getWork().getFinishContent() != null)){
+            finishContent = post.getWork().getFinishContent();
+        }
+
+        return PostResponse.Info.from(post, isRemovable, isWorker, finishContent);
     }
 
     /**

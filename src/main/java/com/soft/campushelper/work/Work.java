@@ -30,6 +30,8 @@ public class Work extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private WorkStatus status;
 
+    private String finishContent;
+
     private LocalDateTime startedAt;
 
     private LocalDateTime completedAt;
@@ -38,6 +40,14 @@ public class Work extends BaseTimeEntity {
     public void workStart() {
         this.status = WorkStatus.IN_PROGRESS;
         this.startedAt = LocalDateTime.now();
+    }
+
+    public void sendFinishContent(String content){
+        this.finishContent = content;
+    }
+
+    public boolean isExistFinishContent(){
+        return this.finishContent != null;
     }
 
     public void complete() {

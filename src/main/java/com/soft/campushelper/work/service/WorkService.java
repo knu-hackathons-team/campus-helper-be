@@ -1,11 +1,13 @@
 package com.soft.campushelper.work.service;
 
 import com.soft.campushelper.global.constants.MessageConstants;
+import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.service.PostReaderService;
 import com.soft.campushelper.work.Work;
+import com.soft.campushelper.work.controller.dto.WorkRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,7 @@ public class WorkService {
     }
 
     @Transactional
-    public void completeWork(Long memberId, Long postId) {
+    public void completeWork(Long memberId, Long postId, WorkRequest.Finish request) {
         Member member = memberReaderService.getMemberById(memberId);
         Post post = postReaderService.getPostById(postId);
         Work work = workReaderService.getWorkByPost(post);
@@ -39,13 +41,33 @@ public class WorkService {
             throw new IllegalStateException(MessageConstants.NOT_WORK_PERFORMER);
         }
 
-        // 작업 완료 처리
-        work.complete();
+        // 수행 완료 메시지 전송
+        work.sendFinishContent(request.finishContent());
+//        work.complete();
 
         // 게시글 상태 업데이트
-        post.complete();
+//        post.complete();
 
         // 보상 지급
-        member.increasePoint(post.getReward());
+//        member.increasePoint(post.getReward());
+    }
+
+    @Transactional
+    public void ratingToFinishWork(Long memberId, Long postId, WorkRequest.Rate request){
+        Member member = memberReaderService.getMemberById(memberId);
+        Post post = postReaderService.getPostById(postId);
+        Work work = workReaderService.getWorkByPost(post);
+
+        //게시글의 소유자인지
+        if(post.isWriter(member)){
+            //TODO 별점을 유저정보에 저장하는로직
+
+            work.complete();
+
+            post.complete();
+        }else{
+            throw new AuthenticationException(MessageConstants.NOT_POST_WRITER);
+        }
+
     }
 }
