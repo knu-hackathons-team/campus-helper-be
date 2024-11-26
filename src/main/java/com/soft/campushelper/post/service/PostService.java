@@ -1,6 +1,8 @@
 package com.soft.campushelper.post.service;
 
+import com.soft.campushelper.funding.Funding;
 import com.soft.campushelper.funding.service.FundingReaderService;
+import com.soft.campushelper.funding.service.FundingWriterService;
 import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
@@ -26,6 +28,7 @@ public class PostService {
     private final PostWriterService postWriterService;
     private final WorkReaderService workReaderService;
     private final FundingReaderService fundingReaderService;
+    private final FundingWriterService fundingWriterService;
 
     /**
      * 게시물을 추가하는 메서드
@@ -37,6 +40,15 @@ public class PostService {
         Post post = request.toEntity(member);
 
         postWriterService.save(post);
+
+        // 게시자를 첫 펀딩 참여자로 등록
+        Funding funding = Funding.builder()
+                .post(post)
+                .participant(member)
+                .amount(request.reward())  // 게시자의 초기 보상금
+                .build();
+
+        fundingWriterService.save(funding);
 
         //TODO 유저 포인트 감소 로직
         member.decreasePoint(request.reward());
@@ -132,6 +144,19 @@ public class PostService {
                             Post post = work.getPost();
                             return PostResponse.MyWorkInfo.from(post);
                         }
+                );
+
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostResponse.MyWorkInfo> getPostListByFunding(Long memberId, Pageable pageable){
+        Member member = memberReaderService.getMemberById(memberId);
+
+        return fundingReaderService.findAllByParticipant(member, pageable)
+                .map(funding -> {
+                    Post post = funding.getPost();
+                    return PostResponse.MyWorkInfo.from(post);
+                }
                 );
 
     }
