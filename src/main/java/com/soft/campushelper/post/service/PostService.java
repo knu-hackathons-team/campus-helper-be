@@ -130,7 +130,7 @@ public class PostService {
                 .map(
                         work -> {
                             Post post = work.getPost();
-                            return PostResponse.MyWorkInfo.from(post, work.getStatus());
+                            return PostResponse.MyWorkInfo.from(post);
                         }
                 );
 

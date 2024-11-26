@@ -116,11 +116,10 @@ public class PostResponse {
             Integer reward,
             String createdAt,
             boolean removable,
-            int currentParticipants,
-            WorkStatus workStatus
+            int currentParticipants
 
     ){
-        public static MyWorkInfo from(Post post, WorkStatus workStatus){
+        public static MyWorkInfo from(Post post){
             return MyWorkInfo.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -136,7 +135,6 @@ public class PostResponse {
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .removable(true)
                     .currentParticipants(post.getCurrentParticipants())
-                    .workStatus(workStatus)
                     .build();
         }
     }
