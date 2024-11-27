@@ -30,7 +30,8 @@ public class Work extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private WorkStatus status;
 
-    private String finishContent;
+    @Builder.Default
+    private String finishContent = "";
 
     private LocalDateTime startedAt;
 

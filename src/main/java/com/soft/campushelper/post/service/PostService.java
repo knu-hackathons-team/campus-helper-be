@@ -96,7 +96,7 @@ public class PostService {
 
         String finishContent = "";
         //공동펀딩의 펀딩자 이거나 게시물의 작성자 일때, 수행완료글이 존재한다면
-        if((post.isWriter(member) || isParticipant) && post.getWork() != null && (post.getWork().getFinishContent() != null)){
+        if((post.isWriter(member) || isParticipant || isWorker) && post.getWork() != null && (post.getWork().getFinishContent() != null)){
             finishContent = post.getWork().getFinishContent();
         }
 
