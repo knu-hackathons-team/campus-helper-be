@@ -65,6 +65,10 @@ public class WorkService {
             work.complete();
 
             post.complete();
+
+            Member workerMember = memberReaderService.getMemberById(work.getWorker().getId());
+            workerMember.increasePoint(post.getReward());
+
         }else{
             throw new AuthenticationException(MessageConstants.NOT_POST_WRITER);
         }
