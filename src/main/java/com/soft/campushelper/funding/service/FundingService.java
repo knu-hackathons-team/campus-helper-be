@@ -36,7 +36,7 @@ public class FundingService {
         Funding funding = Funding.builder()
                 .post(post)
                 .participant(member)
-                .amount(100)//TODO 펀딩 금액 조절
+                .amount(post.getReward()) //Post의 보상금만큼 펀딩
                 .status(ParticipationStatus.IN_PROGRESS)
                 .build();
 
@@ -45,7 +45,7 @@ public class FundingService {
         fundingWriterService.save(funding);
 
         //TODO 펀딩 후 유저 포인트 감소 로직
-        member.decreasePoint(100);
+        member.decreasePoint(post.getReward());
 
     }
 }
