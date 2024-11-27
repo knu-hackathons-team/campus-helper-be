@@ -12,4 +12,10 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
     boolean existsByPostAndParticipant(Post post, Member member);
 
     Page<Funding> findAllByParticipant(Member participant, Pageable pageable);
+
+    Page<Funding> findAllByParticipantAndPost_AllowGroupFunding(
+            Member participant,
+            boolean allowGroupFunding,
+            Pageable pageable
+    );
 }

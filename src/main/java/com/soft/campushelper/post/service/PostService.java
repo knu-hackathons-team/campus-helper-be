@@ -149,16 +149,11 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostResponse.MyWorkInfo> getPostListByFunding(Long memberId, Pageable pageable){
+    public Page<PostResponse.MyWorkInfo> getPostListByFunding(Long memberId, Pageable pageable) {
         Member member = memberReaderService.getMemberById(memberId);
 
-        return fundingReaderService.findAllByParticipant(member, pageable)
-                .map(funding -> {
-                    Post post = funding.getPost();
-                    return PostResponse.MyWorkInfo.from(post);
-                }
-                );
-
+        return fundingReaderService.findAllByParticipantAndPostAllowGroupFunding(member, pageable)
+                .map(funding -> PostResponse.MyWorkInfo.from(funding.getPost()));
     }
 
 }

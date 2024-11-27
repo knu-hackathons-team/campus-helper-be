@@ -25,4 +25,9 @@ public class FundingReaderService {
         return fundingRepository.findAllByParticipant(participant, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Page<Funding> findAllByParticipantAndPostAllowGroupFunding(Member participant, Pageable pageable) {
+        return fundingRepository.findAllByParticipantAndPost_AllowGroupFunding(participant, true, pageable);
+    }
+
 }
