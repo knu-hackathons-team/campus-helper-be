@@ -34,9 +34,32 @@ public class PostResponse {
             String createdAt,
             boolean removable,
             int currentParticipants,
-            boolean isWorker
+            boolean isWorker,
+            String finishContent
 
     ){
+        public static Info from(Post post, boolean removable, boolean isWorker, String finishContent){
+            return Info.builder()
+                    .id(post.getId())
+                    .college(post.getWriter().getCollege())
+                    .writer(post.getWriter().getNickname())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .category(post.getCategory())
+                    .allowGroupFunding(post.isAllowGroupFunding())
+                    .processingStatus(post.getProcessStatus())
+                    .latitude(post.getLatitude())
+                    .longitude(post.getLongitude())
+                    .reward(post.getReward())
+                    .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                    .removable(removable)
+                    .currentParticipants(post.getCurrentParticipants())
+                    .processingStatus(post.getProcessStatus())
+                    .isWorker(isWorker)
+                    .finishContent(finishContent)
+                    .build();
+        }
+
         public static Info from(Post post, boolean removable, boolean isWorker){
             return Info.builder()
                     .id(post.getId())
@@ -93,11 +116,10 @@ public class PostResponse {
             Integer reward,
             String createdAt,
             boolean removable,
-            int currentParticipants,
-            WorkStatus workStatus
+            int currentParticipants
 
     ){
-        public static MyWorkInfo from(Post post, WorkStatus workStatus){
+        public static MyWorkInfo from(Post post){
             return MyWorkInfo.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -113,7 +135,6 @@ public class PostResponse {
                     .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .removable(true)
                     .currentParticipants(post.getCurrentParticipants())
-                    .workStatus(workStatus)
                     .build();
         }
     }
