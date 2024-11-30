@@ -35,10 +35,11 @@ public class PostResponse {
             boolean removable,
             int currentParticipants,
             boolean isWorker,
-            String finishContent
+            String finishContent,
+            boolean isFunder
 
     ){
-        public static Info from(Post post, boolean removable, boolean isWorker, String finishContent){
+        public static Info from(Post post, boolean removable, boolean isWorker, String finishContent, boolean isFunder){
             return Info.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -57,6 +58,7 @@ public class PostResponse {
                     .processingStatus(post.getProcessStatus())
                     .isWorker(isWorker)
                     .finishContent(finishContent)
+                    .isFunder(isFunder)
                     .build();
         }
 

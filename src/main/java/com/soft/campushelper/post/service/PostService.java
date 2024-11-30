@@ -64,15 +64,17 @@ public class PostService {
                 map(post -> {
             boolean isRemovable = false;
             boolean isWorker = false;
+                    boolean isFunder = false;
             if (memberId == null) {
-                return PostResponse.Info.from(post, isRemovable, isWorker);
+                return PostResponse.Info.from(post, isRemovable, isWorker, "" , isFunder);
             }
 
             Member member = memberReaderService.getMemberById(memberId);
             isRemovable = post.isWriter(member);
             isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
+            isFunder = fundingReaderService.existsByPostAndParticipant(post, member);
 
-            return PostResponse.Info.from(post, isRemovable, isWorker);
+            return PostResponse.Info.from(post, isRemovable, isWorker, "", isFunder);
         });
     }
 
@@ -84,23 +86,25 @@ public class PostService {
         Post post = postReaderService.getPostById(postId);
         boolean isRemovable = false;
         boolean isWorker = false;
+        boolean isFunder = false;
         if (memberId == null) { //비회원일때
-            return PostResponse.Info.from(post, isRemovable, isWorker,"");
+            return PostResponse.Info.from(post, isRemovable, isWorker,"", isFunder);
         }
 
         Member member = memberReaderService.getMemberById(memberId);
         isRemovable = post.isWriter(member);
         isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
 
-        boolean isParticipant = fundingReaderService.existsByPostAndParticipant(post, member);
+
+        isFunder = fundingReaderService.existsByPostAndParticipant(post, member);
 
         String finishContent = "";
         //공동펀딩의 펀딩자 이거나 게시물의 작성자 일때, 수행완료글이 존재한다면
-        if((post.isWriter(member) || isParticipant || isWorker) && post.getWork() != null && (post.getWork().getFinishContent() != null)){
+        if((post.isWriter(member) || isFunder|| isWorker) && post.getWork() != null && (post.getWork().getFinishContent() != null)){
             finishContent = post.getWork().getFinishContent();
         }
 
-        return PostResponse.Info.from(post, isRemovable, isWorker, finishContent);
+        return PostResponse.Info.from(post, isRemovable, isWorker, finishContent, isFunder);
     }
 
     /**
