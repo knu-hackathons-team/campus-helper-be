@@ -3,7 +3,6 @@ package com.soft.campushelper.post.controller.dto;
 import com.soft.campushelper.post.HelpCategory;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.ProcessStatus;
-import com.soft.campushelper.work.WorkStatus;
 import lombok.Builder;
 
 import java.time.format.DateTimeFormatter;
@@ -13,11 +12,12 @@ public class PostResponse {
     @Builder
     public record Infos(
             List<Info> infos
-    ){
-        public static Infos from(List<PostResponse.Info> infoList){
+    ) {
+        public static Infos from(List<PostResponse.Info> infoList) {
             return Infos.builder().infos(infoList).build();
         }
     }
+
     @Builder
     public record Info(
             Long id,
@@ -38,8 +38,8 @@ public class PostResponse {
             String finishContent,
             boolean isFunder
 
-    ){
-        public static Info from(Post post, boolean removable, boolean isWorker, String finishContent, boolean isFunder){
+    ) {
+        public static Info from(Post post, boolean removable, boolean isWorker, String finishContent, boolean isFunder) {
             return Info.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -62,7 +62,7 @@ public class PostResponse {
                     .build();
         }
 
-        public static Info from(Post post, boolean removable, boolean isWorker){
+        public static Info from(Post post, boolean removable, boolean isWorker) {
             return Info.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -82,7 +82,8 @@ public class PostResponse {
                     .isWorker(isWorker)
                     .build();
         }
-        public static Info from(Post post){
+
+        public static Info from(Post post) {
             return Info.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())
@@ -120,8 +121,8 @@ public class PostResponse {
             boolean removable,
             int currentParticipants
 
-    ){
-        public static MyWorkInfo from(Post post){
+    ) {
+        public static MyWorkInfo from(Post post) {
             return MyWorkInfo.builder()
                     .id(post.getId())
                     .college(post.getWriter().getCollege())

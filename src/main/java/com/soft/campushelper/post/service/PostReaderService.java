@@ -17,7 +17,7 @@ public class PostReaderService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public Post getPostById(Long postId){
+    public Post getPostById(Long postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new EntityNotFoundException(MessageConstants.POST_NOT_FOUND)
         );

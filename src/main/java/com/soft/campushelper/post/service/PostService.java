@@ -4,9 +4,9 @@ import com.soft.campushelper.funding.Funding;
 import com.soft.campushelper.funding.service.FundingReaderService;
 import com.soft.campushelper.funding.service.FundingWriterService;
 import com.soft.campushelper.global.constants.MessageConstants;
+import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
-import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.controller.dto.PostRequest;
 import com.soft.campushelper.post.controller.dto.PostResponse;
@@ -34,7 +34,7 @@ public class PostService {
      * 게시물을 추가하는 메서드
      */
     @Transactional
-    public void addPost(Long memberId, PostRequest.Add request){
+    public void addPost(Long memberId, PostRequest.Add request) {
         Member member = memberReaderService.getMemberById(memberId);
 
         Post post = request.toEntity(member);
@@ -59,23 +59,23 @@ public class PostService {
      * 비회원, 회원 모두 가능
      */
     @Transactional(readOnly = true)
-    public Page<PostResponse.Info> getPostList(Pageable pageable, Long memberId){
+    public Page<PostResponse.Info> getPostList(Pageable pageable, Long memberId) {
         return postReaderService.getPostList(pageable).
                 map(post -> {
-            boolean isRemovable = false;
-            boolean isWorker = false;
+                    boolean isRemovable = false;
+                    boolean isWorker = false;
                     boolean isFunder = false;
-            if (memberId == null) {
-                return PostResponse.Info.from(post, isRemovable, isWorker, "" , isFunder);
-            }
+                    if (memberId == null) {
+                        return PostResponse.Info.from(post, isRemovable, isWorker, "", isFunder);
+                    }
 
-            Member member = memberReaderService.getMemberById(memberId);
-            isRemovable = post.isWriter(member);
-            isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
-            isFunder = fundingReaderService.existsByPostAndParticipant(post, member);
+                    Member member = memberReaderService.getMemberById(memberId);
+                    isRemovable = post.isWriter(member);
+                    isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
+                    isFunder = fundingReaderService.existsByPostAndParticipant(post, member);
 
-            return PostResponse.Info.from(post, isRemovable, isWorker, "", isFunder);
-        });
+                    return PostResponse.Info.from(post, isRemovable, isWorker, "", isFunder);
+                });
     }
 
     /**
@@ -88,7 +88,7 @@ public class PostService {
         boolean isWorker = false;
         boolean isFunder = false;
         if (memberId == null) { //비회원일때
-            return PostResponse.Info.from(post, isRemovable, isWorker,"", isFunder);
+            return PostResponse.Info.from(post, isRemovable, isWorker, "", isFunder);
         }
 
         Member member = memberReaderService.getMemberById(memberId);
@@ -100,7 +100,7 @@ public class PostService {
 
         String finishContent = "";
         //공동펀딩의 펀딩자 이거나 게시물의 작성자 일때, 수행완료글이 존재한다면
-        if((post.isWriter(member) || isFunder|| isWorker) && post.getWork() != null && (post.getWork().getFinishContent() != null)){
+        if ((post.isWriter(member) || isFunder || isWorker) && post.getWork() != null && (post.getWork().getFinishContent() != null)) {
             finishContent = post.getWork().getFinishContent();
         }
 
@@ -109,11 +109,12 @@ public class PostService {
 
     /**
      * 게시물을 삭제하는 메서드
+     *
      * @param memberId
      * @param postId
      */
     @Transactional
-    public void deletePost(Long memberId, Long postId){
+    public void deletePost(Long memberId, Long postId) {
         Member member = memberReaderService.getMemberById(memberId);
         Post post = postReaderService.getPostById(postId);
 
@@ -129,7 +130,7 @@ public class PostService {
      */
 
     @Transactional(readOnly = true)
-    public Page<PostResponse.Info> getMemberPostList(Long memberId, Pageable pageable){
+    public Page<PostResponse.Info> getMemberPostList(Long memberId, Pageable pageable) {
         Member member = memberReaderService.getMemberById(memberId);
         Page<Post> postList = postReaderService.getPostListByWriter(member, pageable);
         return postList.map(post -> {
@@ -140,7 +141,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostResponse.MyWorkInfo> getPostListByWorker(Long memberId, Pageable pageable){
+    public Page<PostResponse.MyWorkInfo> getPostListByWorker(Long memberId, Pageable pageable) {
         Member member = memberReaderService.getMemberById(memberId);
         return workReaderService.findAllByWorker(member, pageable)
                 .map(

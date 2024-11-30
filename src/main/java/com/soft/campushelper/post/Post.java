@@ -2,11 +2,25 @@ package com.soft.campushelper.post;
 
 
 import com.soft.campushelper.global.constants.MessageConstants;
-import com.soft.campushelper.member.Member;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
+import com.soft.campushelper.member.Member;
 import com.soft.campushelper.work.Work;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -68,7 +82,7 @@ public class Post extends BaseTimeEntity {
 
     //TODO 펀딩 연관관계
 
-    public boolean isWriter(Member member){
+    public boolean isWriter(Member member) {
         return this.writer.equals(member);
     }
 
@@ -98,6 +112,7 @@ public class Post extends BaseTimeEntity {
 
         this.processStatus = ProcessStatus.IN_PROGRESS;
     }
+
     public void complete() {
         if (this.processStatus != ProcessStatus.IN_PROGRESS) {
             throw new IllegalStateException(MessageConstants.INVALID_WORK_STATUS);

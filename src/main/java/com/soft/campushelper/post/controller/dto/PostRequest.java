@@ -18,7 +18,7 @@ public class PostRequest {
             int remainingTime,
             double latitude,
             double longitude
-    ){
+    ) {
         public Post toEntity(Member member) {
             return Post.builder()
                     .title(title)
