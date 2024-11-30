@@ -19,6 +19,9 @@ public final class MessageConstants {
     public static final String FUNDING_NOT_ALLOWED = "펀딩이 불가능한 게시글입니다.";
     public static final String ALREADY_PARTICIPATED = "이미 참여한 펀딩입니다.";
     public static final String INVALID_FUNDING_AMOUNT = "잘못된 펀딩 금액입니다.";
+    public static final String WRITER_CANNOT_CANCEL_FUNDING = "작성자는 펀딩을 취소할 수 없습니다.";
+    public static final String CANNOT_CANCEL_IN_PROGRESS = "수행자가 수행중일때는 펀딩을 취소할 수 없습니다.";
+    public static final String NOT_FUNDING_PARTICIPANT = "펀딩 참여자가 아닙니다.";
 
     // 수행 관련
     public static final String WORK_NOT_FOUND = "존재하지 않는 작업입니다.";

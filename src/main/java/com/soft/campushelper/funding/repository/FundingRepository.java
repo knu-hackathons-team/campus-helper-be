@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     boolean existsByPostAndParticipant(Post post, Member member);
@@ -18,4 +20,6 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
             boolean allowGroupFunding,
             Pageable pageable
     );
+
+    Optional<Funding> getFundingByPostAndParticipant(Post post, Member member);
 }

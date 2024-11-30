@@ -15,4 +15,9 @@ public class FundingWriterService {
     public void save(Funding funding) {
         fundingRepository.save(funding);
     }
+
+    @Transactional
+    public void delete(Funding funding) {
+        fundingRepository.delete(funding);
+    }
 }

@@ -121,4 +121,9 @@ public class Post extends BaseTimeEntity {
 
     }
 
+    public void removeParticipant(int fundingAmount) {
+        this.currentParticipants--;
+        this.reward -= fundingAmount;
+    }
+
 }
