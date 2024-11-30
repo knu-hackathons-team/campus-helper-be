@@ -74,6 +74,10 @@ public class PostService {
                     isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
                     isFunder = fundingReaderService.existsByPostAndParticipant(post, member);
 
+                    if(!post.isAllowGroupFunding()){
+                        isFunder = false;
+                    }
+
                     return PostResponse.Info.from(post, isRemovable, isWorker, "", isFunder);
                 });
     }
@@ -102,6 +106,10 @@ public class PostService {
         //공동펀딩의 펀딩자 이거나 게시물의 작성자 일때, 수행완료글이 존재한다면
         if ((post.isWriter(member) || isFunder || isWorker) && post.getWork() != null && (post.getWork().getFinishContent() != null)) {
             finishContent = post.getWork().getFinishContent();
+        }
+
+        if(!post.isAllowGroupFunding()){
+            isFunder = false;
         }
 
         return PostResponse.Info.from(post, isRemovable, isWorker, finishContent, isFunder);
