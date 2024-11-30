@@ -33,7 +33,7 @@ public class FundingReaderService {
 
     @Transactional(readOnly = true)
     public Funding getFundingByPostAndParticipant(Post post, Member member){
-        return fundingRepository.getFundingByPostAndParticipant(post, member).orElseThrow(() -> new IllegalStateException(MessageConstants.NOT_FUNDING_PARTICIPANT));;
+        return fundingRepository.getFundingByPostAndParticipant(post, member).orElseThrow(() -> new IllegalStateException(MessageConstants.NOT_FUNDING_PARTICIPANT));
     }
 
 }
