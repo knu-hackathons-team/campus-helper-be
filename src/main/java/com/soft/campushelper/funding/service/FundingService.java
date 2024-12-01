@@ -1,10 +1,10 @@
 package com.soft.campushelper.funding.service;
 
+import com.soft.campushelper.funding.Funding;
 import com.soft.campushelper.funding.ParticipationStatus;
 import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.member.service.MemberReaderService;
-import com.soft.campushelper.funding.Funding;
 import com.soft.campushelper.post.Post;
 import com.soft.campushelper.post.ProcessStatus;
 import com.soft.campushelper.post.service.PostReaderService;

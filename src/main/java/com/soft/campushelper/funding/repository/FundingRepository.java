@@ -1,7 +1,7 @@
 package com.soft.campushelper.funding.repository;
 
-import com.soft.campushelper.member.Member;
 import com.soft.campushelper.funding.Funding;
+import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

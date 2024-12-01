@@ -1,9 +1,9 @@
 package com.soft.campushelper.funding.service;
 
 import com.soft.campushelper.funding.Funding;
+import com.soft.campushelper.funding.repository.FundingRepository;
 import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.member.Member;
-import com.soft.campushelper.funding.repository.FundingRepository;
 import com.soft.campushelper.post.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ public class FundingReaderService {
 
     private final FundingRepository fundingRepository;
 
-    public boolean existsByPostAndParticipant(Post post, Member member){
+    public boolean existsByPostAndParticipant(Post post, Member member) {
         return fundingRepository.existsByPostAndParticipant(post, member);
     }
 
@@ -32,7 +32,7 @@ public class FundingReaderService {
     }
 
     @Transactional(readOnly = true)
-    public Funding getFundingByPostAndParticipant(Post post, Member member){
+    public Funding getFundingByPostAndParticipant(Post post, Member member) {
         return fundingRepository.getFundingByPostAndParticipant(post, member).orElseThrow(() -> new IllegalStateException(MessageConstants.NOT_FUNDING_PARTICIPANT));
     }
 
