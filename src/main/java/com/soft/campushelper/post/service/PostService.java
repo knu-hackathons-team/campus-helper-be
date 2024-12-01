@@ -50,6 +50,8 @@ public class PostService {
 
         fundingWriterService.save(funding);
 
+        post.initBaseReward(); // baseReward 설정
+
         //TODO 유저 포인트 감소 로직
         member.decreasePoint(request.reward());
     }

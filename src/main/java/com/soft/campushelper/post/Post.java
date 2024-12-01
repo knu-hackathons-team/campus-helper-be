@@ -69,6 +69,8 @@ public class Post extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ProcessStatus processStatus = ProcessStatus.NOT_STARTED;
 
+    private int baseReward;
+
     @Column(nullable = false)
     @Builder.Default
     private int reward = 0;
@@ -124,6 +126,10 @@ public class Post extends BaseTimeEntity {
     public void removeParticipant(int fundingAmount) {
         this.currentParticipants--;
         this.reward -= fundingAmount;
+    }
+
+    public void initBaseReward(){
+        this.baseReward = this.reward;
     }
 
 }
