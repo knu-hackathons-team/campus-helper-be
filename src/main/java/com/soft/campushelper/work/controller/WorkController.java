@@ -20,9 +20,9 @@ public class WorkController {
 
     @PostMapping("/{post-id}")
     public GlobalResponse takeWork(
-        @Authenticate Long memberId,
-        @PathVariable("post-id") Long postId
-    ){
+            @Authenticate Long memberId,
+            @PathVariable("post-id") Long postId
+    ) {
         workService.takeWork(memberId, postId);
         return GlobalResponse.builder().message("수행 시작").build();
     }
@@ -32,7 +32,7 @@ public class WorkController {
             @Authenticate Long memberId,
             @PathVariable("post-id") Long postId,
             @RequestBody WorkRequest.Finish request
-            ){
+    ) {
         workService.completeWork(memberId, postId, request);
         return GlobalResponse.builder().message("수행 완료").build();
     }
@@ -42,7 +42,7 @@ public class WorkController {
             @Authenticate Long memberId,
             @PathVariable("post-id") Long postId,
             @RequestBody WorkRequest.Rate request
-    ){
+    ) {
 
         workService.ratingToFinishWork(memberId, postId, request);
         return GlobalResponse.builder().message("평가 완료").build();

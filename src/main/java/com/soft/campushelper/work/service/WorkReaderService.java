@@ -17,7 +17,7 @@ public class WorkReaderService {
     private final WorkRepository workRepository;
 
     @Transactional(readOnly = true)
-    public Work getWorkByPost(Post post){
+    public Work getWorkByPost(Post post) {
         return workRepository.findByPost(post).orElseThrow(
                 () -> new IllegalStateException("진행 중인 작업이 없습니다.")
         );

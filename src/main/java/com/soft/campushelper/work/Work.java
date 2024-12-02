@@ -4,8 +4,21 @@ import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -43,11 +56,11 @@ public class Work extends BaseTimeEntity {
         this.startedAt = LocalDateTime.now();
     }
 
-    public void sendFinishContent(String content){
+    public void sendFinishContent(String content) {
         this.finishContent = content;
     }
 
-    public boolean isExistFinishContent(){
+    public boolean isExistFinishContent() {
         return this.finishContent != null;
     }
 

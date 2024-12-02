@@ -20,7 +20,7 @@ public class WorkService {
     private final WorkReaderService workReaderService;
 
     @Transactional
-    public void takeWork(Long memberId, Long postId){
+    public void takeWork(Long memberId, Long postId) {
         Member member = memberReaderService.getMemberById(memberId);
         Post post = postReaderService.getPostById(postId);
         //게시물에 수행자 배정
@@ -53,13 +53,13 @@ public class WorkService {
     }
 
     @Transactional
-    public void ratingToFinishWork(Long memberId, Long postId, WorkRequest.Rate request){
+    public void ratingToFinishWork(Long memberId, Long postId, WorkRequest.Rate request) {
         Member member = memberReaderService.getMemberById(memberId);
         Post post = postReaderService.getPostById(postId);
         Work work = workReaderService.getWorkByPost(post);
 
         //게시글의 소유자인지
-        if(post.isWriter(member)){
+        if (post.isWriter(member)) {
             //TODO 별점을 유저정보에 저장하는로직
 
             work.complete();
@@ -69,7 +69,7 @@ public class WorkService {
             Member workerMember = memberReaderService.getMemberById(work.getWorker().getId());
             workerMember.increasePoint(post.getReward());
 
-        }else{
+        } else {
             throw new AuthenticationException(MessageConstants.NOT_POST_WRITER);
         }
 
