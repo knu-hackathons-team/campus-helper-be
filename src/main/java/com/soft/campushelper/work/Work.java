@@ -4,16 +4,7 @@ import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.entity.BaseTimeEntity;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +32,7 @@ public class Work extends BaseTimeEntity {
     private Member worker;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private WorkStatus status;
 
     @Builder.Default
