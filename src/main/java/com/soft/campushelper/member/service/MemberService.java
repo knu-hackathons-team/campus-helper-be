@@ -75,6 +75,12 @@ public class MemberService {
         member.increasePoint(100000);
     }
 
+    @Transactional
+    public void withdrawPoint(Long memberId, MemberRequest.Withdraw request) {
+        Member member = memberReaderService.getMemberById(memberId);
+        member.decreasePoint(request.point());
+    }
+
 
 
     private String hashPassword(String password) {

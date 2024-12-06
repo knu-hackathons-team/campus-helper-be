@@ -22,4 +22,11 @@ public class MemberRequest {
     ){
 
     }
+
+    @Builder
+    public record Withdraw(
+            int point
+    ){
+
+    }
 }

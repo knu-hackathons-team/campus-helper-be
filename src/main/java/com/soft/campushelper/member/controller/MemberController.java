@@ -48,4 +48,14 @@ public class MemberController {
         memberService.pointUp(memberId);
         return GlobalResponse.builder().message("포인트 증가").build();
     }
+
+    @PostMapping("/point/withdraw")
+    public GlobalResponse withdrawPoint(
+            @Authenticate Long memberId,
+            @RequestBody MemberRequest.Withdraw request
+    ){
+        memberService.withdrawPoint(memberId, request);
+        return GlobalResponse.builder().message("출금 완료").build();
+    }
+
 }
