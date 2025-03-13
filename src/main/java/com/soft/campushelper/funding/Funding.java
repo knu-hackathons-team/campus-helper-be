@@ -4,11 +4,7 @@ import com.soft.campushelper.global.entity.BaseTimeEntity;
 import com.soft.campushelper.member.Member;
 import com.soft.campushelper.post.Post;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter

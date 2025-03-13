@@ -10,7 +10,7 @@ public class MemberRequest {
             String password,
             String nickname,
             String college
-    ){
+    ) {
 
     }
 
@@ -19,14 +19,14 @@ public class MemberRequest {
     public record Login(
             String loginId,
             String password
-    ){
+    ) {
 
     }
 
     @Builder
     public record Withdraw(
             int point
-    ){
+    ) {
 
     }
 }

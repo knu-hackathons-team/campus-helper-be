@@ -1,17 +1,16 @@
 package com.soft.campushelper.member.service;
 
-import com.soft.campushelper.global.constants.MessageConstants;
-import com.soft.campushelper.member.Member;
-import com.soft.campushelper.member.controller.dto.MemberRequest;
-import com.soft.campushelper.member.Role;
-import com.soft.campushelper.member.controller.dto.MemberResponse;
 import com.soft.campushelper.global.auth.JwtProvider;
+import com.soft.campushelper.global.constants.MessageConstants;
 import com.soft.campushelper.global.exception.AuthenticationException;
 import com.soft.campushelper.global.exception.EntityNotFoundException;
+import com.soft.campushelper.member.Member;
+import com.soft.campushelper.member.Role;
+import com.soft.campushelper.member.controller.dto.MemberRequest;
+import com.soft.campushelper.member.controller.dto.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -47,6 +46,7 @@ public class MemberService {
 
         memberWriterService.save(member);
     }
+
     @Transactional
     public String login(MemberRequest.Login request) {
         Member member = memberReaderService.getMemberByLoginId(request.loginId()).orElseThrow(
@@ -61,7 +61,7 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponse.Info getMemberInfo(Long memberId){
+    public MemberResponse.Info getMemberInfo(Long memberId) {
         Member member = memberReaderService.getMemberById(memberId);
 
         return MemberResponse.Info.from(member);

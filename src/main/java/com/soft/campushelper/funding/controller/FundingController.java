@@ -4,11 +4,7 @@ import com.soft.campushelper.funding.service.FundingService;
 import com.soft.campushelper.global.annotation.Authenticate;
 import com.soft.campushelper.global.dto.GlobalResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
