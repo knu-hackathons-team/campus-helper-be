@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,14 +47,14 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Work> works;
 
-    public void decreasePoint(int point){
-        if(this.point - point < 0){
+    public void decreasePoint(int point) {
+        if (this.point - point < 0) {
             throw new InvalidConditionException(MessageConstants.INSUFFICIENT_POINTS);
         }
         this.point -= point;
     }
 
-    public void increasePoint(int point){
+    public void increasePoint(int point) {
         this.point += point;
     }
 }

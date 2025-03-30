@@ -1,10 +1,10 @@
 package com.soft.campushelper.member.controller;
 
+import com.soft.campushelper.global.annotation.Authenticate;
+import com.soft.campushelper.global.dto.GlobalResponse;
 import com.soft.campushelper.member.controller.dto.MemberRequest;
 import com.soft.campushelper.member.controller.dto.MemberResponse;
 import com.soft.campushelper.member.service.MemberService;
-import com.soft.campushelper.global.annotation.Authenticate;
-import com.soft.campushelper.global.dto.GlobalResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +19,11 @@ public class MemberController {
     @PostMapping("/register")
     public GlobalResponse register(
             @RequestBody MemberRequest.Register request
-            ){
+    ) {
         memberService.register(request);
         return GlobalResponse.builder().message("회원가입이 완료되었습니다.").build();
     }
+
     @PostMapping("/login")
     public ResponseEntity<MemberResponse.Login> login(
             @RequestBody MemberRequest.Login request
@@ -44,7 +45,7 @@ public class MemberController {
     @GetMapping("/point")
     public GlobalResponse addPoint(
             @Authenticate Long memberId
-    ){
+    ) {
         memberService.pointUp(memberId);
         return GlobalResponse.builder().message("포인트 증가").build();
     }
@@ -53,7 +54,7 @@ public class MemberController {
     public GlobalResponse withdrawPoint(
             @Authenticate Long memberId,
             @RequestBody MemberRequest.Withdraw request
-    ){
+    ) {
         memberService.withdrawPoint(memberId, request);
         return GlobalResponse.builder().message("출금 완료").build();
     }

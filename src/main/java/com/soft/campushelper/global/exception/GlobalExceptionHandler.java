@@ -3,7 +3,6 @@ package com.soft.campushelper.global.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,6 +16,7 @@ public class GlobalExceptionHandler {
         ProblemDetail problemDetail = setCustomProblemDetail(e);
         return ResponseEntity.status(problemDetail.getStatus()).body(problemDetail);
     }
+
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ProblemDetail> authenticationException(AuthenticationException e) {
         ProblemDetail problemDetail = setCustomProblemDetail(e);

@@ -76,7 +76,7 @@ public class PostService {
                     isWorker = post.getWork() != null && post.getWork().isCorrectWorker(member);
                     isFunder = fundingReaderService.existsByPostAndParticipant(post, member);
 
-                    if(!post.isAllowGroupFunding()){
+                    if (!post.isAllowGroupFunding()) {
                         isFunder = false;
                     }
 
@@ -110,7 +110,7 @@ public class PostService {
             finishContent = post.getWork().getFinishContent();
         }
 
-        if(!post.isAllowGroupFunding()){
+        if (!post.isAllowGroupFunding()) {
             isFunder = false;
         }
 

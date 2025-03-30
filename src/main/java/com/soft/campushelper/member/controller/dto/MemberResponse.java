@@ -8,8 +8,8 @@ public class MemberResponse {
     @Builder
     public record Login(
             String jwt
-    ){
-        public static MemberResponse.Login from(String jwt){
+    ) {
+        public static MemberResponse.Login from(String jwt) {
             return Login.builder().jwt(jwt).build();
         }
     }
@@ -19,8 +19,8 @@ public class MemberResponse {
             String nickname,
             String college,
             int point
-    ){
-        public static MemberResponse.Info from(Member member){
+    ) {
+        public static MemberResponse.Info from(Member member) {
             return Info.builder()
                     .nickname(member.getNickname())
                     .college(member.getCollege())
